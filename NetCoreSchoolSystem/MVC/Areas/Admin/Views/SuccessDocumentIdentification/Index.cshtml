@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DAL.Entity.SuccessDocumentIdentification>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="SuccessDocumentIdentification" class="btn btn-success float-right">Yeni Belge Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="sucdoctable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Belge adı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var successDocument in Model)
+                    {
+                        <tr>
+                            <td>@successDocument.DocumentName</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="SuccessDocumentIdentification" asp-route-id="@successDocument.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="SuccessDocumentIdentification" asp-route-id="@successDocument.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#sucdoctable').DataTable();
+        });
+    </script>
+}
+

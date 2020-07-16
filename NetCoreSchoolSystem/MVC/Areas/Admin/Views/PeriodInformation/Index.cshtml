@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DAL.Entity.PeriodInformation>
+@{
+    ViewData["Title"] = "Dönem Bilgisi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="PeriodInformation" class="btn btn-success float-right">Yeni Branş Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="periodtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ders Yılı</th>
+                        <th>Dönem Adı</th>
+                        <th>Dönemin Başlangıç Tarihi</th>
+                        <th>Dönemin Bitiş Tarihi</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var period in Model)
+                    {
+                        <tr>
+                            <td>@period.LessonYear</td>
+                            <td>@period.PeriodName</td>
+                            <td>@period.PeriodStartDate</td>
+                            <td>@period.PeriodFinishDate</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="PeriodInformation" asp-route-id="@period.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="PeriodInformation" asp-route-id="@period.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#periodtable').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DAL.Entity.Teacher>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="Teacher" class="btn btn-success float-right">Yeni Öğretmen Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="teachertable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>TC Kimlik No</th>
+                        <th>Öğretmen Adı</th>
+                        <th>Öğretmen Soyadı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                        <th>Doğum Tarihi</th>
+                        <th>Branşı</th>
+                        <th>Cep Telefon Numarası</th>
+                        <th>E-mail Adresi</th>
+                        <th>Ev Telefonu</th>
+                        <th>Ev Adresi</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var teacher in Model)
+                    {
+                        <tr>
+                            <td>@teacher.IdentificationNumber</td>
+                            <td>@teacher.FirstName</td>
+                            <td>@teacher.SurName</td>
+                            <td>@teacher.FullName</td>
+                            <td>@teacher.Birthday</td>
+                            <td>@teacher.BranchID</td>
+                            <td>@teacher.CellPhone</td>
+                            <td>@teacher.Email</td>
+                            <td>@teacher.HomePhone</td>
+                            <td>@teacher.HomeAddress</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="Teacher" asp-route-id="@teacher.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="Teacher" asp-route-id="@teacher.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#teachertable').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,39 @@
+﻿@model DAL.Entity.LessonHour
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Yeni Ders Saati Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="LessonHour" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Başlangıç Saati</label>
+                                        <br />
+                                        <input asp-for="StartHour" type="text" class="form-group" placeholder="başlangıç saati giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bitiş Saati</label>
+                                        <br />
+                                        <input asp-for="FinishHour" type="text" class="form-group" placeholder="bitiş saati giriniz" />
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

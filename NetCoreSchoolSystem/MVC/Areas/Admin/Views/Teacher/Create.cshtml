@@ -1,0 +1,76 @@
+﻿@model DAL.Entity.Teacher
+@{
+    ViewData["Title"] = "Yeni Öğretmen";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h2>Yeni Öğretmen Oluştur</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <form role="form" asp-action="Create" asp-controller="Teacher" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>TC Kimlik No</label>
+                                    <br />
+                                    <input asp-for="IdentificationNumber" type="text" class="form-group" placeholder="tc kimlik no giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğretmen Adı</label>
+                                    <br />
+                                    <input asp-for="FirstName" type="text" class="form-group" placeholder="öğretmen adı giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğretmen Soyadı</label>
+                                    <br />
+                                    <input asp-for="SurName" type="text" class="form-group" placeholder="öğretmen soyadı giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Doğum Tarihi</label>
+                                    <br />
+                                    <input asp-for="Birthday" type="date" class="form-group" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Branş</label>
+                                    <select class="form-control custom-select" asp-for="BranchID" asp-items="ViewBag.MainBranches">
+                                        <option selected="" disabled>Lütfen Branş Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cep Telefonu</label>
+                                    <br />
+                                    <input asp-for="CellPhone" type="text" class="form-group" placeholder="cep telefon numarasını giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <br />
+                                    <input asp-for="Email" type="text" class="form-group" placeholder="e-mail adresini giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ev Telefonu</label>
+                                    <br />
+                                    <input asp-for="HomePhone" type="text" class="form-group" placeholder="ev telefon numarasını giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ev Adresi</label>
+                                    <br />
+                                    <input asp-for="HomeAddress" type="text" class="form-group" placeholder="ev adresini giriniz" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Oluştur</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DAL.Entity.OneToMany.ClassRoom>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="ClassRoom" class="btn btn-success float-right">Yeni Sınıf Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="roomtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf adı</th>
+                        <th>Şube adı</th>
+                        <th>Sınıf & Şube</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var classRoom in Model)
+                    {
+                        <tr>
+                            <td>@classRoom.Classroom</td>
+                            <td>@classRoom.ClassDepartment</td>
+                            <td>@classRoom.RoomDepartment</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="ClassRoom" asp-route-id="@classRoom.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="ClassRoom" asp-route-id="@classRoom.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#roomtable').DataTable();
+        });
+    </script>
+}
+
+

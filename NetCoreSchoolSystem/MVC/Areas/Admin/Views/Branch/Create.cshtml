@@ -1,0 +1,34 @@
+﻿@model DAL.Entity.OneToMany.Branch
+@{
+    ViewData["Title"] = "Yeni Brans";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Yeni Branş Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="Branch" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Branş Adı</label>
+                                        <br />
+                                        <input asp-for="BranchName" type="text" class="form-group" placeholder="branş adı giriniz" />
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

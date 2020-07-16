@@ -1,0 +1,39 @@
+﻿@model DAL.Entity.OneToMany.ClassRoom
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Sınıf Düzenle</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Edit" asp-controller="ClassRoom" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Sınıf Adı</label>
+                                        <br />
+                                        <input asp-for="Classroom" type="text" class="form-group" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Şube Adı</label>
+                                        <br />
+                                        <input asp-for="ClassDepartment" type="text" class="form-group" />
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Düzenle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

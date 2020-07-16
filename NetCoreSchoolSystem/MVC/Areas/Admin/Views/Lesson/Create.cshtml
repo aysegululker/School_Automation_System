@@ -1,0 +1,64 @@
+﻿@model DAL.Entity.Lesson
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Yeni Ders Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="Lesson" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Ders Adı</label>
+                                        <br />
+                                        <input asp-for="LessonName" type="text" class="form-group" placeholder="ders adı giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ders Kategorisi</label>
+                                        <select asp-for="LessonCategory" class="form-control custom-select">
+                                            <option disabled selected="">Lütfen Ders Kategorisini Seçiniz</option>
+                                            <option>Sayısal</option>
+                                            <option>Sözel</option>
+                                            <option>Yardımcı</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Haftalık Ders Saati</label>
+                                        <br />
+                                        <input asp-for="WeeklyLessonHour" type="text" class="form-group" placeholder="haftalık saat bilgisi giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Birinci Sınav Ağırlığı</label>
+                                        <br />
+                                        <input asp-for="MidTermNoteWeight1" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ara Sınav Ağırlığı</label>
+                                        <br />
+                                        <input asp-for="MidTermNoteWeight2" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Final Sınav Ağırlığı</label>
+                                        <br />
+                                        <input asp-for="FinalExamNoteWeight" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

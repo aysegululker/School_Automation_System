@@ -1,0 +1,49 @@
+﻿@model DAL.Entity.PeriodInformation
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Dönem Düzenle</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Edit" asp-controller="PeriodInformation" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Ders Yılı</label>
+                                        <br />
+                                        <input asp-for="LessonYear" type="text" class="form-group" placeholder="ders yılı giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Dönem Adı</label>
+                                        <br />
+                                        <input asp-for="PeriodName" type="text" class="form-group" placeholder="dönem adı giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Dönemin Başlangıç Tarihi</label>
+                                        <br />
+                                        <input asp-for="PeriodStartDate" type="date" class="form-group" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Dönemin Bitiş Tarihi</label>
+                                        <br />
+                                        <input asp-for="PeriodFinishDate" type="date" class="form-group" />
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Düzenle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

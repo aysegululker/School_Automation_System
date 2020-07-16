@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DAL.Entity.LessonHour>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="LessonHour" class="btn btn-success float-right">Yeni Ders Saati Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="hourtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Başlangıç Saati</th>
+                        <th>Bitiş Saati</th>
+                        <th>Ders Saati</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var hour in Model)
+                    {
+                        <tr>
+                            <td>@hour.StartHour</td>
+                            <td>@hour.FinishHour</td>
+                            <td>@hour.LesHour</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="LessonHour" asp-route-id="@hour.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="LessonHour" asp-route-id="@hour.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#hourtable').DataTable();
+        });
+    </script>
+}
+
