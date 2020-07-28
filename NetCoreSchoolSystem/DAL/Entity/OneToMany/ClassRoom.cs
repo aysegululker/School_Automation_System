@@ -14,14 +14,14 @@ namespace DAL.Entity.OneToMany
         //This class is defined for classroom. (Yeni sınıf oluşturmak için)
 
         
-        public string Classroom { get; set; } //9, 10, 11, 12
+        public string Room { get; set; } //9, 10, 11, 12
         public string ClassDepartment { get; set; } //A - B - C
 
         public string RoomDepartment 
         {
             get
             {
-                var sonuc = Classroom + "-" + ClassDepartment;
+                var sonuc = Room + "-" + ClassDepartment;
                 return sonuc;
             }
         }

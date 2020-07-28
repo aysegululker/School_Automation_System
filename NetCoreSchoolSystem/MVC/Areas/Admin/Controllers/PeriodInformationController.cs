@@ -6,6 +6,7 @@ using BLL.Abstract;
 using DAL.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVC.Areas.Admin.Controllers
 {
@@ -34,6 +35,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: PeriodInformation/Create
         public ActionResult Create()
         {
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.LessonYear, Value = x.ID.ToString() });
             return View();
         }
 

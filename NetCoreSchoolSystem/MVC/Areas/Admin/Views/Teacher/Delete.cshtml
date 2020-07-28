@@ -1,0 +1,21 @@
+﻿@model DAL.Entity.Teacher
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card-header">
+            <h2>Öğretmen Sil</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Delete" asp-controller="Teacher" method="post">
+                <p>
+                    @Model.FullName isimli öğretmeni silmek isteğinizden emin misiniz?
+                </p>
+                <button class="btn btn-danger">Evet</button>
+                <a asp-action="Index" asp-controller="Teacher" class="btn">İptal</a>
+            </form>
+        </div>
+    </div>
+

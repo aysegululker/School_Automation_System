@@ -44,6 +44,8 @@ namespace MVC
             services.AddScoped<IPeriodInformationService, PeriodInformationRepository>();
             services.AddScoped<ISuccessDocumentIdentificationService, SuccessDocumentIdentificationRepository>();
             services.AddScoped<ITeacherService, TeacherRepository>();
+            services.AddScoped<IPreRegistrationService, PreRegistrationRepository>();
+            services.AddScoped<IStudentService, StudentRepository>();
 
             //Identity
             services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<AppDbContext>();

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DAL.Entity.Teacher>
+﻿@model TeacherVM
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var teacher in Model)
+                    @foreach (var teacher in Model.Teachers)
                     {
                         <tr>
                             <td>@teacher.IdentificationNumber</td>
@@ -37,7 +37,7 @@
                             <td>@teacher.SurName</td>
                             <td>@teacher.FullName</td>
                             <td>@teacher.Birthday</td>
-                            <td>@teacher.BranchID</td>
+                            <td>@teacher.Branch.BranchName</td>
                             <td>@teacher.CellPhone</td>
                             <td>@teacher.Email</td>
                             <td>@teacher.HomePhone</td>

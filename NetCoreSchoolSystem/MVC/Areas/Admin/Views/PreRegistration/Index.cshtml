@@ -1,0 +1,78 @@
+﻿@model PreRegistrationVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="PreRegistration" class="btn btn-success float-right">Yeni Kayıt Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="registtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>TC Kimlik No</th>
+                        <th>Ders Yılı</th>
+                        <th>Ön Kayıt No</th>
+                        <th>Öğrenci Adı Soyadı</th>
+                        <th>Cinsiyeti</th>
+                        <th>Doğum Tarihi</th>
+                        <th>Cep Telefonu</th>
+                        <th>Son Okuduğu Okul</th>
+                        <th>Sınıf</th>
+                        <th>Not Ortalaması</th>
+                        <th>Veli Adı Soyadı</th>
+                        <th>Velinin Cep Telefonu</th>
+                        <th>Veli E-mail</th>
+                        <th>Ev Telefonu</th>
+                        <th>Ev Adresi</th>
+                        <th>Resim</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var preRegistration in Model.PreRegistrations)
+                    {
+                        <tr>
+                            <td>@preRegistration.IdentificationNumber</td>
+                            <td>@preRegistration.PeriodInformation.LessonYear</td>
+                            <td>@preRegistration.PreSchoolNumber</td>
+                            <td>@preRegistration.FullName</td>
+                            <td>@preRegistration.Gender</td>
+                            <td>@preRegistration.Birthday</td>
+                            <td>@preRegistration.CellPhone</td>
+                            <td>@preRegistration.TheEndSchool</td>
+                            <td>@preRegistration.ClassRoom.Room</td>
+                            <td>@preRegistration.LastGradeAverage</td>
+                            <td>@preRegistration.ParentName</td>
+                            <td>@preRegistration.ParentCellPhone</td>
+                            <td>@preRegistration.Email</td>
+                            <td>@preRegistration.HomePhone</td>
+                            <td>@preRegistration.HomeAddress</td>
+                            <td>
+                                <img src="~/images/@preRegistration.ImagePath" style="width:50px; height:50px;" />
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#registtable').DataTable();
+        });
+    </script>
+}
+

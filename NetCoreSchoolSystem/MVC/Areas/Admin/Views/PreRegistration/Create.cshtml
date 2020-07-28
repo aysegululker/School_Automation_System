@@ -1,0 +1,128 @@
+﻿@model DAL.Entity.PreRegistration
+@{
+    ViewData["Title"] = "Ön Kayıt";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h2>Ön Kayıt Öğrencisi Oluştur</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <form role="form" asp-action="Create" asp-controller="PreRegistration" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>TC Kimlik No</label>
+                                    <br />
+                                    <input asp-for="IdentificationNumber" type="text" class="form-group" placeholder="tc kimlik no giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ders Yılı</label>
+                                    <select class="form-control custom-select" asp-for="PeriodInformationID" asp-items="ViewBag.MainPeriod">
+                                        <option selected="" disabled>Lütfen Ders Yılı Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğrenci Adı</label>
+                                    <br />
+                                    <input asp-for="FirstName" type="text" class="form-group" placeholder="öğrenci adı giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğrenci Soyadı</label>
+                                    <br />
+                                    <input asp-for="SurName" type="text" class="form-group" placeholder="öğrenci soyadı giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Cinsiyeti</label>
+                                    <select asp-for="Gender" class="form-control custom-select">
+                                        <option disabled selected="">Lütfen Cinsiyeti Seçiniz</option>
+                                        <option>Erkek</option>
+                                        <option>Kız</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Doğum Tarihi</label>
+                                    <br />
+                                    <input asp-for="Birthday" type="date" class="form-group" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Cep Telefonu</label>
+                                    <br />
+                                    <input asp-for="CellPhone" type="text" class="form-group" placeholder="cep telefon numarasını giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Son Okuduğu Okul</label>
+                                    <br />
+                                    <input asp-for="TheEndSchool" type="text" class="form-group" placeholder="son okul bilgisini giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Sınıfı</label>
+                                    <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainClass">
+                                        <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Not Ortalaması</label>
+                                    <br />
+                                    <input asp-for="LastGradeAverage" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Veli Adı Soyadı</label>
+                                    <br />
+                                    <input asp-for="ParentName" type="text" class="form-group" placeholder="veli adı soyadı giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Cep Telefonu</label>
+                                    <br />
+                                    <input asp-for="ParentCellPhone" type="text" class="form-group" placeholder="cep telefon numarasını giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <br />
+                                    <input asp-for="Email" type="email" class="form-group" placeholder="e-mail adresini giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ev Telefonu</label>
+                                    <br />
+                                    <input asp-for="HomePhone" type="text" class="form-group" placeholder="ev telefon numarasını giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ev Adresi</label>
+                                    <br />
+                                    <input asp-for="HomeAddress" type="text" class="form-group" placeholder="ev adresini giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Resim Ekle</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" name="image" />
+                                            <label class="custom-file-label" for="exampleInputFile">Fotoğraf Seç</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Oluştur</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/schoolpage/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script>
+
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+    </script>
+}
+

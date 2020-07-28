@@ -7,6 +7,7 @@ using DAL.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Areas.Admin.Models.ViewModels;
 
 namespace MVC.Areas.Admin.Controllers
 {
@@ -14,16 +15,22 @@ namespace MVC.Areas.Admin.Controllers
     public class TeacherController : Controller
     {
         private readonly ITeacherService teacherService;
+        private readonly IBranchService branchService;
 
-        public TeacherController(ITeacherService teacherService)
+        public TeacherController(ITeacherService teacherService, IBranchService branchService)
         {
             this.teacherService = teacherService;
+            this.branchService = branchService;
         }
 
         // GET: Teacher
         public ActionResult Index()
         {
-            return View(teacherService.GetActiveTeacher());
+            TeacherVM teacherVM = new TeacherVM();
+            teacherVM.Teachers = teacherService.GetActiveTeacher();
+            teacherVM.Branches = branchService.GetActiveBranch();
+            //return View(teacherService.GetActiveTeacher());
+            return View(teacherVM);
         }
 
         // GET: Teacher/Details/5
@@ -35,6 +42,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: Teacher/Create
         public ActionResult Create()
         {
+            ViewBag.MainBranches = branchService.GetActiveBranch().Select(x => new SelectListItem() { Text = x.BranchName, Value = x.ID.ToString() });
             return View();
         }
 
@@ -57,8 +65,8 @@ namespace MVC.Areas.Admin.Controllers
         // GET: Teacher/Edit/5
         public ActionResult Edit(Guid id)
         {
-            Teacher teacher = teacherService.GetById(id);
-            return View(teacher);
+            ViewBag.MainBranches = branchService.GetActiveBranch().Select(x => new SelectListItem() { Text = x.BranchName, Value = x.ID.ToString() });
+            return View(teacherService.GetById(id));
         }
 
         // POST: Teacher/Edit/5

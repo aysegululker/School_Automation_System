@@ -877,9 +877,6 @@ namespace MVC.Migrations
                     b.Property<string>("ClassDepartment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Classroom")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedAdUserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -935,6 +932,9 @@ namespace MVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Room")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -1057,6 +1057,9 @@ namespace MVC.Migrations
                     b.Property<bool>("ClassAssignment")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("ClassRoomID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CreatedAdUserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1096,14 +1099,8 @@ namespace MVC.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JobPhone")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("LastGradeAverage")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("LessonYearID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedAdUserName")
                         .HasColumnType("nvarchar(max)");
@@ -1120,10 +1117,16 @@ namespace MVC.Migrations
                     b.Property<string>("ModifiedIP")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParentCellPhone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ParentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PreSchoolName")
+                    b.Property<Guid>("PeriodInformationID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PreSchoolNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
@@ -1140,7 +1143,9 @@ namespace MVC.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LessonYearID");
+                    b.HasIndex("ClassRoomID");
+
+                    b.HasIndex("PeriodInformationID");
 
                     b.ToTable("PreRegistrations");
                 });
@@ -1901,9 +1906,17 @@ namespace MVC.Migrations
 
             modelBuilder.Entity("DAL.Entity.PreRegistration", b =>
                 {
-                    b.HasOne("DAL.Entity.PeriodInformation", "LessonYear")
+                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany()
-                        .HasForeignKey("LessonYearID");
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entity.PeriodInformation", "PeriodInformation")
+                        .WithMany()
+                        .HasForeignKey("PeriodInformationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entity.Student", b =>

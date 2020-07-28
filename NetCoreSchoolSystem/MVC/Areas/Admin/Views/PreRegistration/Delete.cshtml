@@ -1,0 +1,21 @@
+﻿@model DAL.Entity.PreRegistration
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card-header">
+            <h2>Ön Kayıt Öğrencisini Sil</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Delete" asp-controller="PreRegistration" method="post">
+                <p>
+                    @Model.FullName isimli ön kayıt öğrencisini silmek isteğinizden emin misiniz?
+                </p>
+                <button class="btn btn-danger">Evet</button>
+                <a asp-action="Index" asp-controller="PreRegistration" class="btn">İptal</a>
+            </form>
+        </div>
+    </div>
+

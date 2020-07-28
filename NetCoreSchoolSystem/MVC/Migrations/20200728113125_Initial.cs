@@ -476,53 +476,6 @@ namespace MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PreRegistrations",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    IdentificationNumber = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    SurName = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    CellPhone = table.Column<string>(nullable: true),
-                    HomePhone = table.Column<string>(nullable: true),
-                    HomeAddress = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    CreatedComputerName = table.Column<string>(nullable: true),
-                    CreatedIP = table.Column<string>(nullable: true),
-                    CreatedAdUserName = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedComputerName = table.Column<string>(nullable: true),
-                    ModifiedIP = table.Column<string>(nullable: true),
-                    ModifiedAdUserName = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    LessonYearID = table.Column<Guid>(nullable: true),
-                    PreSchoolName = table.Column<string>(nullable: true),
-                    TheEndSchool = table.Column<string>(nullable: true),
-                    LastGradeAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ParentName = table.Column<string>(nullable: true),
-                    JobPhone = table.Column<string>(nullable: true),
-                    ClassAssignment = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PreRegistrations", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PreRegistrations_PeriodInformations_LessonYearID",
-                        column: x => x.LessonYearID,
-                        principalTable: "PeriodInformations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SuccessDocuments",
                 columns: table => new
                 {
@@ -653,7 +606,7 @@ namespace MVC.Migrations
                     ModifiedIP = table.Column<string>(nullable: true),
                     ModifiedAdUserName = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
-                    Classroom = table.Column<string>(nullable: true),
+                    Room = table.Column<string>(nullable: true),
                     ClassDepartment = table.Column<string>(nullable: true),
                     ClassDefinationID = table.Column<Guid>(nullable: true)
                 },
@@ -666,6 +619,60 @@ namespace MVC.Migrations
                         principalTable: "ClassDefinations",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PreRegistrations",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    PreSchoolNumber = table.Column<string>(nullable: true),
+                    TheEndSchool = table.Column<string>(nullable: true),
+                    LastGradeAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ParentName = table.Column<string>(nullable: true),
+                    ParentCellPhone = table.Column<string>(nullable: true),
+                    ClassAssignment = table.Column<bool>(nullable: false),
+                    PeriodInformationID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreRegistrations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PreRegistrations_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PreRegistrations_PeriodInformations_PeriodInformationID",
+                        column: x => x.PeriodInformationID,
+                        principalTable: "PeriodInformations",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1147,9 +1154,14 @@ namespace MVC.Migrations
                 column: "TeacherSurNameID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PreRegistrations_LessonYearID",
+                name: "IX_PreRegistrations_ClassRoomID",
                 table: "PreRegistrations",
-                column: "LessonYearID");
+                column: "ClassRoomID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PreRegistrations_PeriodInformationID",
+                table: "PreRegistrations",
+                column: "PeriodInformationID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentLessons_LessonID",
