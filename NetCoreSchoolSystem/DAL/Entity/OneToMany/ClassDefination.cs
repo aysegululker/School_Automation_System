@@ -11,12 +11,13 @@ namespace DAL.Entity.OneToMany
     {
         //This class is assign classes to school floors. (Okulun katlarına sınıfları dağıtmak için)
 
-        public PeriodInformation LessonYear { get; set; } //Ders yılı 2019-2020
         public string FloorLocation { get; set; } //Bulunduğu kat
-        public int Capacity { get; set; } //Sınıf kapasitesi
 
+        public Guid PeriodInformationID { get; set; }
+        public virtual PeriodInformation PeriodInformation { get; set; } //Ders yılı 2019-2020
 
-        //OneToMany
-        public virtual List<ClassRoom> ClassRooms { get; set; } //Bir katta birden fazla sınıf olabilir
+        public Guid ClassRoomID { get; set; }
+        public virtual ClassRoom ClassRoom { get; set; }
+
     }
 }

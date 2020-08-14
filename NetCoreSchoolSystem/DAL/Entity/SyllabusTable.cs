@@ -1,6 +1,7 @@
 ﻿using DAL.Entity.Base;
 using DAL.Entity.Enum;
 using DAL.Entity.ManyToMany;
+using DAL.Entity.OneToMany;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,9 +14,19 @@ namespace DAL.Entity
     {
         //Ders Programı
 
-        public WeekDays WeekDays { get; set; } //Gün
+        public WeekDays Day { get; set; } //Gün
+
+        public Guid LessonHourID { get; set; }
         public LessonHour LessonHour { get; set; } //Saat
-        public Lesson LessonName { get; set; } //Ders adı
+
+        public Guid LessonID { get; set; }
+        public Lesson Lesson { get; set; } //Ders adı
+
+        public Guid ClassRoomID { get; set; }
+        public ClassRoom ClassRoom { get; set; } //Sınıf
+
+        public Guid TeacherID { get; set; }
+        public Teacher Teacher { get; set; }
 
         //ManyToMany
         public virtual List<StudentSyllabusTable> StudentSyllabusTables { get; set; }

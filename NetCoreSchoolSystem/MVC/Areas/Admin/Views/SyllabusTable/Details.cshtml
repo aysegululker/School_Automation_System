@@ -1,0 +1,58 @@
+﻿@model SyllabusTableVM
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="SyllabusTable" class="btn btn-success float-right">Yeni Ders Programı Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Ders Günü</th>
+                        <th>Ders Saati</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lesson in Model.SyllabusTables)
+                    {
+                        <tr>
+                            <td>@lesson.ClassRoom.RoomDepartment</td>
+                            <td>@lesson.Day</td>
+                            <td>@lesson.LessonHour.LesHour</td>
+                            <td>@lesson.Lesson.LessonName</td>
+                            <td>@lesson.Teacher.FullName</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="SyllabusTable" asp-route-id="@lesson.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="SyllabusTable" asp-route-id="@lesson.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+
+
+
+
+

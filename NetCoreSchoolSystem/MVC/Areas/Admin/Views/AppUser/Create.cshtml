@@ -1,0 +1,63 @@
+﻿@model AppUserVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Yeni Kullanıcı Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="AppUser" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Adı</label>
+                                        <br />
+                                        <input asp-for="FirstName" type="text" class="form-group" placeholder="Adı Giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Soyadı</label>
+                                        <br />
+                                        <input asp-for="SurName" type="text" class="form-group" placeholder="Soyadı Giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kullanıcı Adı</label>
+                                        <br />
+                                        <input asp-for="UserName" type="text" class="form-group" placeholder="Kullanıcı Adı Giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Şifre</label>
+                                        <br />
+                                        <input asp-for="Password" type="text" class="form-group" placeholder="Şifre (TC No) Giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>TC No</label>
+                                        <br />
+                                        <input asp-for="IdentificationNumber" type="text" class="form-group" placeholder="TC No Giriniz" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Statü</label>
+                                        <select asp-for="MemberStatus" class="form-control custom-select">
+                                            <option disabled selected="">Lütfen Statü Seçiniz</option>
+                                            <option>Yönetim</option>
+                                            <option>Öğretmen</option>
+                                            <option>Öğrenci</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

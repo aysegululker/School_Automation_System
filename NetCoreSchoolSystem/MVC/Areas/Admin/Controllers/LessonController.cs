@@ -36,7 +36,7 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Create()
         {
             //Todo:Ders kategorisi enum'a bağlanacak.
-            //ViewBag.Categoies = lessonService.GetActiveLesson().Select(x => new SelectListItem() { Text = x.LessonCategory.ToString(), Value = x.ID.ToString() });
+            ViewBag.MainLesson = lessonService.GetActiveLesson().Select(x => new SelectListItem() { Text = x.LessonName, Value = x.ID.ToString() });
             return View();
         }
 
@@ -59,8 +59,8 @@ namespace MVC.Areas.Admin.Controllers
         // GET: Lesson/Edit/5
         public ActionResult Edit(Guid id)
         {
-            Lesson lesson = lessonService.GetById(id);
-            return View(lesson);
+            ViewBag.MainLesson = lessonService.GetActiveLesson().Select(x => new SelectListItem() { Text = x.LessonName, Value = x.ID.ToString() });
+            return View(lessonService.GetById(id));
         }
 
         // POST: Lesson/Edit/5

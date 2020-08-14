@@ -1,0 +1,47 @@
+﻿@model DAL.Entity.ManyToMany.RoomLessonTeacher
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Düzenle</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Edit" asp-controller="RoomLessonTeacher" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Sınıf</label>
+                                        <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainRoom">
+                                            <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ders</label>
+                                        <select class="form-control custom-select" asp-for="LessonID" asp-items="ViewBag.MainLesson">
+                                            <option selected="" disabled>Lütfen Dersi Seçin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Öğretmen</label>
+                                        <select class="form-control custom-select" asp-for="TeacherID" asp-items="ViewBag.MainTeachers">
+                                            <option selected="" disabled>Lütfen Öğretmeni Seçin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Düzenle</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

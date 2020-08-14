@@ -36,6 +36,7 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MainClass = classRoomService.GetActiveRoom().GroupBy(ind => new {ind.Room }).Select(x => new SelectListItem() { Text = x.First().Room, Value = x.First().ID.ToString() });
+            ViewBag.MainRoom = classRoomService.GetActiveRoom().Select(x => new SelectListItem() { Text = x.RoomDepartment, Value = x.ID.ToString() });
             return View();
         }
 
@@ -58,9 +59,9 @@ namespace MVC.Areas.Admin.Controllers
         // GET: ClassRoom/Edit/5
         public ActionResult Edit(Guid id)
         {
-            ClassRoom classRoom = classRoomService.GetById(id);
             ViewBag.MainClass = classRoomService.GetActiveRoom().GroupBy(ind => new { ind.Room }).Select(x => new SelectListItem() { Text = x.First().Room, Value = x.First().ID.ToString() });
-            return View(classRoom);
+            ViewBag.MainRoom = classRoomService.GetActiveRoom().Select(x => new SelectListItem() { Text = x.RoomDepartment, Value = x.ID.ToString() });
+            return View(classRoomService.GetById(id));
         }
 
         // POST: ClassRoom/Edit/5

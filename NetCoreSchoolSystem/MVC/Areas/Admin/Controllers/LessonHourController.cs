@@ -35,7 +35,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: LessonHour/Create
         public ActionResult Create()
         {
-            ViewBag.MainCategories = lessonHourService.GetActiveHour().Select(x => new SelectListItem() { Text = x.LesHour, Value = x.ID.ToString() });
+            ViewBag.MainHour = lessonHourService.GetActiveHour().Select(x => new SelectListItem() { Text = x.LesHour, Value = x.ID.ToString() });
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             LessonHour hour = lessonHourService.GetById(id);
-            ViewBag.MainCategories = lessonHourService.GetActiveHour().Select(x => new SelectListItem() { Text = x.LesHour, Value = x.ID.ToString() });
+            ViewBag.MainHour = lessonHourService.GetActiveHour().Select(x => new SelectListItem() { Text = x.LesHour, Value = x.ID.ToString() });
             return View(hour);
         }
 

@@ -1,0 +1,51 @@
+﻿@model NoteVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Ogrenci/Views/Shared/_OgrenciLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Ders Notları</h2>
+        </div>
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ders Dönemi</th>
+                        <th>Dönemi</th>
+                        <th>Sınıf</th>
+                        <th>Öğrenci Adı & Soyadı</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.NoteEntries)
+                    {
+                        <tr>
+                            <td>@item.PeriodInformation.LessonYear</td>
+                            <td>@item.PeriodInformation.PeriodName</td>
+                            <td>@item.ClassRoom.RoomDepartment</td>
+                            <td>@item.Student.FullName</td>
+                            <td>@item.Lesson.LessonName</td>
+                            <td>@item.Teacher.FullName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+

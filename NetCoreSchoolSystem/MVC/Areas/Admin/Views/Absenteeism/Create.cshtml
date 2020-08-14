@@ -1,0 +1,67 @@
+﻿@model DAL.Entity.Absenteeism
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="Absenteeism" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Sınıf</label>
+                                        <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainRoom">
+                                            <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Öğrenci Adı & Soyadı</label>
+                                        <select class="form-control custom-select" asp-for="StudentID" asp-items="ViewBag.MainStudent">
+                                            <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Raporlu mu/Değil mi?</label>
+                                        <select asp-for="IsReported" class="form-control custom-select">
+                                            <option disabled selected="">Lütfen Seçiniz</option>
+                                            <option>Evet</option>
+                                            <option>Hayır</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rapor Başlangıç Tarihi</label>
+                                        <br />
+                                        <input asp-for="ReportStartDate" type="date" class="form-group" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Rapor Bitiş Tarihi</label>
+                                        <br />
+                                        <input asp-for="ReportFinishDate" type="date" class="form-group" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nöbetçi Öğrenci mi?</label>
+                                        <select asp-for="IsGuardStudent" class="form-control custom-select">
+                                            <option disabled selected="">Lütfen Seçiniz</option>
+                                            <option>Evet</option>
+                                            <option>Hayır</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DAL.Entity.OneToMany.ClassRoom>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Ogretmen/Views/Shared/_OgretmenLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-body">
+            <table id="roomtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var classRoom in Model)
+                    {
+                        <tr>
+                            <td>@classRoom.RoomDepartment</td>
+                            <td>
+                                <a asp-action="Details" asp-controller="ClassRoom" asp-route-id="@classRoom.ID" class="btn btn-sm btn-primary">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#roomtable').DataTable();
+        });
+    </script>
+}
+

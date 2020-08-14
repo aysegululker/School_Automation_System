@@ -40,11 +40,10 @@ namespace MVC.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    IdentificationNumber = table.Column<string>(maxLength: 11, nullable: true),
-                    SchoolNumber = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     SurName = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true)
+                    MemberStatus = table.Column<string>(nullable: true),
+                    IdentificationNumber = table.Column<string>(maxLength: 11, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,6 +83,43 @@ namespace MVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Branches", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClassRooms",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Room = table.Column<string>(nullable: true),
+                    ClassDepartment = table.Column<string>(nullable: true),
+                    Capacity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassRooms", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -384,55 +420,6 @@ namespace MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SyllabusTables",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    IdentificationNumber = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    SurName = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    CellPhone = table.Column<string>(nullable: true),
-                    HomePhone = table.Column<string>(nullable: true),
-                    HomeAddress = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    CreatedComputerName = table.Column<string>(nullable: true),
-                    CreatedIP = table.Column<string>(nullable: true),
-                    CreatedAdUserName = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedComputerName = table.Column<string>(nullable: true),
-                    ModifiedIP = table.Column<string>(nullable: true),
-                    ModifiedAdUserName = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    WeekDays = table.Column<int>(nullable: false),
-                    LessonHourID = table.Column<Guid>(nullable: true),
-                    LessonNameID = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SyllabusTables", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_SyllabusTables_LessonHours_LessonHourID",
-                        column: x => x.LessonHourID,
-                        principalTable: "LessonHours",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SyllabusTables_Lessons_LessonNameID",
-                        column: x => x.LessonNameID,
-                        principalTable: "Lessons",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ClassDefinations",
                 columns: table => new
                 {
@@ -460,19 +447,79 @@ namespace MVC.Migrations
                     ModifiedIP = table.Column<string>(nullable: true),
                     ModifiedAdUserName = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
-                    LessonYearID = table.Column<Guid>(nullable: true),
                     FloorLocation = table.Column<string>(nullable: true),
-                    Capacity = table.Column<int>(nullable: false)
+                    PeriodInformationID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ClassDefinations", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ClassDefinations_PeriodInformations_LessonYearID",
-                        column: x => x.LessonYearID,
+                        name: "FK_ClassDefinations_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClassDefinations_PeriodInformations_PeriodInformationID",
+                        column: x => x.PeriodInformationID,
                         principalTable: "PeriodInformations",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PreRegistrations",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    PreSchoolNumber = table.Column<string>(nullable: true),
+                    TheEndSchool = table.Column<string>(nullable: true),
+                    LastGradeAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ParentName = table.Column<string>(nullable: true),
+                    ParentCellPhone = table.Column<string>(nullable: true),
+                    ClassAssignment = table.Column<bool>(nullable: false),
+                    PeriodInformationID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreRegistrations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PreRegistrations_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PreRegistrations_PeriodInformations_PeriodInformationID",
+                        column: x => x.PeriodInformationID,
+                        principalTable: "PeriodInformations",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -531,15 +578,212 @@ namespace MVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoomLessonTeachers",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    ClassRoomID = table.Column<Guid>(nullable: false),
+                    LessonID = table.Column<Guid>(nullable: false),
+                    TeacherID = table.Column<Guid>(nullable: false),
+                    BranchID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomLessonTeachers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_RoomLessonTeachers_Branches_BranchID",
+                        column: x => x.BranchID,
+                        principalTable: "Branches",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RoomLessonTeachers_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RoomLessonTeachers_Lessons_LessonID",
+                        column: x => x.LessonID,
+                        principalTable: "Lessons",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RoomLessonTeachers_Teachers_TeacherID",
+                        column: x => x.TeacherID,
+                        principalTable: "Teachers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SyllabusTables",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    Day = table.Column<int>(nullable: false),
+                    LessonHourID = table.Column<Guid>(nullable: false),
+                    LessonID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false),
+                    TeacherID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SyllabusTables", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_SyllabusTables_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SyllabusTables_LessonHours_LessonHourID",
+                        column: x => x.LessonHourID,
+                        principalTable: "LessonHours",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SyllabusTables_Lessons_LessonID",
+                        column: x => x.LessonID,
+                        principalTable: "Lessons",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SyllabusTables_Teachers_TeacherID",
+                        column: x => x.TeacherID,
+                        principalTable: "Teachers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeacherClassRooms",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
+                    TeacherID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherClassRooms", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_TeacherClassRooms_ClassRooms_ClassRoomID",
+                        column: x => x.ClassRoomID,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeacherClassRooms_Teachers_TeacherID",
+                        column: x => x.TeacherID,
+                        principalTable: "Teachers",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeacherLessons",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     TeacherID = table.Column<Guid>(nullable: false),
                     LessonID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeacherLessons", x => new { x.TeacherID, x.LessonID });
+                    table.PrimaryKey("PK_TeacherLessons", x => x.ID);
                     table.ForeignKey(
                         name: "FK_TeacherLessons_Lessons_LessonID",
                         column: x => x.LessonID,
@@ -550,127 +794,6 @@ namespace MVC.Migrations
                         name: "FK_TeacherLessons_Teachers_TeacherID",
                         column: x => x.TeacherID,
                         principalTable: "Teachers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TeacherSyllabusTables",
-                columns: table => new
-                {
-                    TeacherID = table.Column<Guid>(nullable: false),
-                    SyllabusTableID = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeacherSyllabusTables", x => new { x.TeacherID, x.SyllabusTableID });
-                    table.ForeignKey(
-                        name: "FK_TeacherSyllabusTables_SyllabusTables_SyllabusTableID",
-                        column: x => x.SyllabusTableID,
-                        principalTable: "SyllabusTables",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeacherSyllabusTables_Teachers_TeacherID",
-                        column: x => x.TeacherID,
-                        principalTable: "Teachers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ClassRooms",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    IdentificationNumber = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    SurName = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    CellPhone = table.Column<string>(nullable: true),
-                    HomePhone = table.Column<string>(nullable: true),
-                    HomeAddress = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    CreatedComputerName = table.Column<string>(nullable: true),
-                    CreatedIP = table.Column<string>(nullable: true),
-                    CreatedAdUserName = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedComputerName = table.Column<string>(nullable: true),
-                    ModifiedIP = table.Column<string>(nullable: true),
-                    ModifiedAdUserName = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    Room = table.Column<string>(nullable: true),
-                    ClassDepartment = table.Column<string>(nullable: true),
-                    ClassDefinationID = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClassRooms", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_ClassRooms_ClassDefinations_ClassDefinationID",
-                        column: x => x.ClassDefinationID,
-                        principalTable: "ClassDefinations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PreRegistrations",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(nullable: false),
-                    IdentificationNumber = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    SurName = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    CellPhone = table.Column<string>(nullable: true),
-                    HomePhone = table.Column<string>(nullable: true),
-                    HomeAddress = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    CreatedComputerName = table.Column<string>(nullable: true),
-                    CreatedIP = table.Column<string>(nullable: true),
-                    CreatedAdUserName = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedComputerName = table.Column<string>(nullable: true),
-                    ModifiedIP = table.Column<string>(nullable: true),
-                    ModifiedAdUserName = table.Column<string>(nullable: true),
-                    ModifiedBy = table.Column<string>(nullable: true),
-                    PreSchoolNumber = table.Column<string>(nullable: true),
-                    TheEndSchool = table.Column<string>(nullable: true),
-                    LastGradeAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ParentName = table.Column<string>(nullable: true),
-                    ParentCellPhone = table.Column<string>(nullable: true),
-                    ClassAssignment = table.Column<bool>(nullable: false),
-                    PeriodInformationID = table.Column<Guid>(nullable: false),
-                    ClassRoomID = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PreRegistrations", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PreRegistrations_ClassRooms_ClassRoomID",
-                        column: x => x.ClassRoomID,
-                        principalTable: "ClassRooms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PreRegistrations_PeriodInformations_PeriodInformationID",
-                        column: x => x.PeriodInformationID,
-                        principalTable: "PeriodInformations",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -705,11 +828,14 @@ namespace MVC.Migrations
                     ModifiedBy = table.Column<string>(nullable: true),
                     SchoolNumber = table.Column<string>(nullable: true),
                     LessonYearID = table.Column<Guid>(nullable: true),
+                    ContinueStatus = table.Column<string>(nullable: true),
                     YearEndAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     GeneralAverage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ParentName = table.Column<string>(nullable: true),
+                    ParentCellPhone = table.Column<string>(nullable: true),
                     JobPhone = table.Column<string>(nullable: true),
-                    ClassRoomID = table.Column<Guid>(nullable: true)
+                    ClassRoomID = table.Column<Guid>(nullable: false),
+                    PreRegistrationID = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -719,37 +845,67 @@ namespace MVC.Migrations
                         column: x => x.ClassRoomID,
                         principalTable: "ClassRooms",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Students_PeriodInformations_LessonYearID",
                         column: x => x.LessonYearID,
                         principalTable: "PeriodInformations",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Students_PreRegistrations_PreRegistrationID",
+                        column: x => x.PreRegistrationID,
+                        principalTable: "PreRegistrations",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeacherClassRooms",
+                name: "TeacherSyllabusTables",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     TeacherID = table.Column<Guid>(nullable: false),
-                    ClassRoomID = table.Column<Guid>(nullable: false)
+                    SyllabusTableID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeacherClassRooms", x => new { x.TeacherID, x.ClassRoomID });
+                    table.PrimaryKey("PK_TeacherSyllabusTables", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TeacherClassRooms_ClassRooms_ClassRoomID",
-                        column: x => x.ClassRoomID,
-                        principalTable: "ClassRooms",
+                        name: "FK_TeacherSyllabusTables_SyllabusTables_SyllabusTableID",
+                        column: x => x.SyllabusTableID,
+                        principalTable: "SyllabusTables",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TeacherClassRooms_Teachers_TeacherID",
+                        name: "FK_TeacherSyllabusTables_Teachers_TeacherID",
                         column: x => x.TeacherID,
                         principalTable: "Teachers",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -780,25 +936,18 @@ namespace MVC.Migrations
                     ModifiedIP = table.Column<string>(nullable: true),
                     ModifiedAdUserName = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
-                    ClassRoomID = table.Column<Guid>(nullable: true),
-                    ClassDepartmentID = table.Column<Guid>(nullable: true),
-                    IsReported = table.Column<bool>(nullable: false),
+                    IsReported = table.Column<string>(nullable: true),
                     ReportStartDate = table.Column<DateTime>(type: "Datetime2", nullable: false),
                     ReportFinishDate = table.Column<DateTime>(type: "Datetime2", nullable: false),
-                    NumberOfDaysWithReport = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsGuardStudent = table.Column<bool>(nullable: false),
+                    NumberOfDaysWithReport = table.Column<double>(nullable: false),
+                    IsGuardStudent = table.Column<string>(nullable: true),
                     NumberOfDaysWithGuardStudent = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    StudentID = table.Column<Guid>(nullable: true)
+                    StudentID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Absenteeisms", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Absenteeisms_ClassRooms_ClassDepartmentID",
-                        column: x => x.ClassDepartmentID,
-                        principalTable: "ClassRooms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Absenteeisms_ClassRooms_ClassRoomID",
                         column: x => x.ClassRoomID,
@@ -841,28 +990,19 @@ namespace MVC.Migrations
                     ModifiedIP = table.Column<string>(nullable: true),
                     ModifiedAdUserName = table.Column<string>(nullable: true),
                     ModifiedBy = table.Column<string>(nullable: true),
-                    SchoolNumberID = table.Column<Guid>(nullable: true),
-                    ClassRoomID = table.Column<Guid>(nullable: true),
-                    ClassDepartmentID = table.Column<Guid>(nullable: true),
-                    StudentNameID = table.Column<Guid>(nullable: true),
-                    StudentSurNameID = table.Column<Guid>(nullable: true),
-                    LessonNameID = table.Column<Guid>(nullable: true),
-                    LessonYearID = table.Column<Guid>(nullable: true),
-                    PeriodNameID = table.Column<Guid>(nullable: true),
-                    ExamType = table.Column<string>(nullable: true),
-                    LessonScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TeacherFirstNameID = table.Column<Guid>(nullable: true),
-                    TeacherSurNameID = table.Column<Guid>(nullable: true)
+                    MidTermExam1Score = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MidTermExam2Score = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FinalExamScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AverageScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TeacherID = table.Column<Guid>(nullable: false),
+                    PeriodInformationID = table.Column<Guid>(nullable: false),
+                    ClassRoomID = table.Column<Guid>(nullable: false),
+                    StudentID = table.Column<Guid>(nullable: false),
+                    LessonID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NoteEntries", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_NoteEntries_ClassRooms_ClassDepartmentID",
-                        column: x => x.ClassDepartmentID,
-                        principalTable: "ClassRooms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_NoteEntries_ClassRooms_ClassRoomID",
                         column: x => x.ClassRoomID,
@@ -870,50 +1010,26 @@ namespace MVC.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_NoteEntries_Lessons_LessonNameID",
-                        column: x => x.LessonNameID,
+                        name: "FK_NoteEntries_Lessons_LessonID",
+                        column: x => x.LessonID,
                         principalTable: "Lessons",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_NoteEntries_PeriodInformations_LessonYearID",
-                        column: x => x.LessonYearID,
+                        name: "FK_NoteEntries_PeriodInformations_PeriodInformationID",
+                        column: x => x.PeriodInformationID,
                         principalTable: "PeriodInformations",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_NoteEntries_PeriodInformations_PeriodNameID",
-                        column: x => x.PeriodNameID,
-                        principalTable: "PeriodInformations",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_NoteEntries_Students_SchoolNumberID",
-                        column: x => x.SchoolNumberID,
+                        name: "FK_NoteEntries_Students_StudentID",
+                        column: x => x.StudentID,
                         principalTable: "Students",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_NoteEntries_Students_StudentNameID",
-                        column: x => x.StudentNameID,
-                        principalTable: "Students",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_NoteEntries_Students_StudentSurNameID",
-                        column: x => x.StudentSurNameID,
-                        principalTable: "Students",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_NoteEntries_Teachers_TeacherFirstNameID",
-                        column: x => x.TeacherFirstNameID,
-                        principalTable: "Teachers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_NoteEntries_Teachers_TeacherSurNameID",
-                        column: x => x.TeacherSurNameID,
+                        name: "FK_NoteEntries_Teachers_TeacherID",
+                        column: x => x.TeacherID,
                         principalTable: "Teachers",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -923,12 +1039,36 @@ namespace MVC.Migrations
                 name: "StudentLessons",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     StudentID = table.Column<Guid>(nullable: false),
                     LessonID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentLessons", x => new { x.StudentID, x.LessonID });
+                    table.PrimaryKey("PK_StudentLessons", x => x.ID);
                     table.ForeignKey(
                         name: "FK_StudentLessons_Lessons_LessonID",
                         column: x => x.LessonID,
@@ -947,12 +1087,36 @@ namespace MVC.Migrations
                 name: "StudentSuccessDocuments",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     StudentID = table.Column<Guid>(nullable: false),
                     SuccessDocumentID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentSuccessDocuments", x => new { x.StudentID, x.SuccessDocumentID });
+                    table.PrimaryKey("PK_StudentSuccessDocuments", x => x.ID);
                     table.ForeignKey(
                         name: "FK_StudentSuccessDocuments_Students_StudentID",
                         column: x => x.StudentID,
@@ -971,36 +1135,84 @@ namespace MVC.Migrations
                 name: "StudentSyllabusTables",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     StudentID = table.Column<Guid>(nullable: false),
                     SyllabusTableID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentSyllabusTables", x => new { x.StudentID, x.SyllabusTableID });
+                    table.PrimaryKey("PK_StudentSyllabusTables", x => x.ID);
                     table.ForeignKey(
                         name: "FK_StudentSyllabusTables_Students_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Students",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudentSyllabusTables_SyllabusTables_SyllabusTableID",
                         column: x => x.SyllabusTableID,
                         principalTable: "SyllabusTables",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "StudentTeachers",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     StudentID = table.Column<Guid>(nullable: false),
                     TeacherID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentTeachers", x => new { x.StudentID, x.TeacherID });
+                    table.PrimaryKey("PK_StudentTeachers", x => x.ID);
                     table.ForeignKey(
                         name: "FK_StudentTeachers_Students_StudentID",
                         column: x => x.StudentID,
@@ -1019,12 +1231,36 @@ namespace MVC.Migrations
                 name: "TeacherNoteEntries",
                 columns: table => new
                 {
+                    ID = table.Column<Guid>(nullable: false),
+                    IdentificationNumber = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    SurName = table.Column<string>(nullable: true),
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    CellPhone = table.Column<string>(nullable: true),
+                    HomePhone = table.Column<string>(nullable: true),
+                    HomeAddress = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedComputerName = table.Column<string>(nullable: true),
+                    CreatedIP = table.Column<string>(nullable: true),
+                    CreatedAdUserName = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedComputerName = table.Column<string>(nullable: true),
+                    ModifiedIP = table.Column<string>(nullable: true),
+                    ModifiedAdUserName = table.Column<string>(nullable: true),
+                    ModifiedBy = table.Column<string>(nullable: true),
                     TeacherID = table.Column<Guid>(nullable: false),
                     NoteEntryID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeacherNoteEntries", x => new { x.TeacherID, x.NoteEntryID });
+                    table.PrimaryKey("PK_TeacherNoteEntries", x => x.ID);
                     table.ForeignKey(
                         name: "FK_TeacherNoteEntries_NoteEntries_NoteEntryID",
                         column: x => x.NoteEntryID,
@@ -1038,11 +1274,6 @@ namespace MVC.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Absenteeisms_ClassDepartmentID",
-                table: "Absenteeisms",
-                column: "ClassDepartmentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Absenteeisms_ClassRoomID",
@@ -1094,19 +1325,14 @@ namespace MVC.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassDefinations_LessonYearID",
+                name: "IX_ClassDefinations_ClassRoomID",
                 table: "ClassDefinations",
-                column: "LessonYearID");
+                column: "ClassRoomID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassRooms_ClassDefinationID",
-                table: "ClassRooms",
-                column: "ClassDefinationID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_ClassDepartmentID",
-                table: "NoteEntries",
-                column: "ClassDepartmentID");
+                name: "IX_ClassDefinations_PeriodInformationID",
+                table: "ClassDefinations",
+                column: "PeriodInformationID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NoteEntries_ClassRoomID",
@@ -1114,44 +1340,24 @@ namespace MVC.Migrations
                 column: "ClassRoomID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_LessonNameID",
+                name: "IX_NoteEntries_LessonID",
                 table: "NoteEntries",
-                column: "LessonNameID");
+                column: "LessonID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_LessonYearID",
+                name: "IX_NoteEntries_PeriodInformationID",
                 table: "NoteEntries",
-                column: "LessonYearID");
+                column: "PeriodInformationID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_PeriodNameID",
+                name: "IX_NoteEntries_StudentID",
                 table: "NoteEntries",
-                column: "PeriodNameID");
+                column: "StudentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_SchoolNumberID",
+                name: "IX_NoteEntries_TeacherID",
                 table: "NoteEntries",
-                column: "SchoolNumberID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_StudentNameID",
-                table: "NoteEntries",
-                column: "StudentNameID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_StudentSurNameID",
-                table: "NoteEntries",
-                column: "StudentSurNameID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_TeacherFirstNameID",
-                table: "NoteEntries",
-                column: "TeacherFirstNameID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteEntries_TeacherSurNameID",
-                table: "NoteEntries",
-                column: "TeacherSurNameID");
+                column: "TeacherID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreRegistrations_ClassRoomID",
@@ -1164,9 +1370,34 @@ namespace MVC.Migrations
                 column: "PeriodInformationID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RoomLessonTeachers_BranchID",
+                table: "RoomLessonTeachers",
+                column: "BranchID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomLessonTeachers_ClassRoomID",
+                table: "RoomLessonTeachers",
+                column: "ClassRoomID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomLessonTeachers_LessonID",
+                table: "RoomLessonTeachers",
+                column: "LessonID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomLessonTeachers_TeacherID",
+                table: "RoomLessonTeachers",
+                column: "TeacherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentLessons_LessonID",
                 table: "StudentLessons",
                 column: "LessonID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLessons_StudentID",
+                table: "StudentLessons",
+                column: "StudentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_ClassRoomID",
@@ -1179,14 +1410,34 @@ namespace MVC.Migrations
                 column: "LessonYearID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Students_PreRegistrationID",
+                table: "Students",
+                column: "PreRegistrationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentSuccessDocuments_StudentID",
+                table: "StudentSuccessDocuments",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentSuccessDocuments_SuccessDocumentID",
                 table: "StudentSuccessDocuments",
                 column: "SuccessDocumentID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StudentSyllabusTables_StudentID",
+                table: "StudentSyllabusTables",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentSyllabusTables_SyllabusTableID",
                 table: "StudentSyllabusTables",
                 column: "SyllabusTableID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentTeachers_StudentID",
+                table: "StudentTeachers",
+                column: "StudentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTeachers_TeacherID",
@@ -1209,14 +1460,24 @@ namespace MVC.Migrations
                 column: "PeriodNameID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SyllabusTables_ClassRoomID",
+                table: "SyllabusTables",
+                column: "ClassRoomID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SyllabusTables_LessonHourID",
                 table: "SyllabusTables",
                 column: "LessonHourID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SyllabusTables_LessonNameID",
+                name: "IX_SyllabusTables_LessonID",
                 table: "SyllabusTables",
-                column: "LessonNameID");
+                column: "LessonID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SyllabusTables_TeacherID",
+                table: "SyllabusTables",
+                column: "TeacherID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeacherClassRooms_ClassRoomID",
@@ -1224,14 +1485,29 @@ namespace MVC.Migrations
                 column: "ClassRoomID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeacherClassRooms_TeacherID",
+                table: "TeacherClassRooms",
+                column: "TeacherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TeacherLessons_LessonID",
                 table: "TeacherLessons",
                 column: "LessonID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeacherLessons_TeacherID",
+                table: "TeacherLessons",
+                column: "TeacherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TeacherNoteEntries_NoteEntryID",
                 table: "TeacherNoteEntries",
                 column: "NoteEntryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherNoteEntries_TeacherID",
+                table: "TeacherNoteEntries",
+                column: "TeacherID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_BranchID",
@@ -1242,6 +1518,11 @@ namespace MVC.Migrations
                 name: "IX_TeacherSyllabusTables_SyllabusTableID",
                 table: "TeacherSyllabusTables",
                 column: "SyllabusTableID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherSyllabusTables_TeacherID",
+                table: "TeacherSyllabusTables",
+                column: "TeacherID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1265,7 +1546,10 @@ namespace MVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PreRegistrations");
+                name: "ClassDefinations");
+
+            migrationBuilder.DropTable(
+                name: "RoomLessonTeachers");
 
             migrationBuilder.DropTable(
                 name: "StudentLessons");
@@ -1313,22 +1597,22 @@ namespace MVC.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
-
-            migrationBuilder.DropTable(
                 name: "LessonHours");
 
             migrationBuilder.DropTable(
                 name: "Lessons");
 
             migrationBuilder.DropTable(
-                name: "ClassRooms");
+                name: "Teachers");
+
+            migrationBuilder.DropTable(
+                name: "PreRegistrations");
 
             migrationBuilder.DropTable(
                 name: "Branches");
 
             migrationBuilder.DropTable(
-                name: "ClassDefinations");
+                name: "ClassRooms");
 
             migrationBuilder.DropTable(
                 name: "PeriodInformations");

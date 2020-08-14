@@ -1,11 +1,12 @@
-﻿using DAL.Entity.OneToMany;
+﻿using DAL.Entity.Base;
+using DAL.Entity.OneToMany;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DAL.Entity.ManyToMany
 {
-    public class TeacherClassRoom
+    public class TeacherClassRoom:CoreEntity
     {
         public Guid TeacherID { get; set; }
         public Guid ClassRoomID { get; set; }

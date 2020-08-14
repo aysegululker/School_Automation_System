@@ -1,0 +1,63 @@
+﻿@model NoteEntryVM
+@{
+    ViewData["Title"] = "DetayOgrenci";
+    Layout = "~/Areas/Ogretmen/Views/Shared/_OgretmenLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="NoteEntry" class="btn btn-success float-right">Yeni Not Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ders Dönemi</th>
+                        <th>Dönemi</th>
+                        <th>Sınıf</th>
+                        <th>Öğrenci Adı & Soyadı</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                        <th>Birinci Sınav Notu</th>
+                        <th>Ara Sınav Notu</th>
+                        <th>Final Sınav Notu</th>
+                        <th>Yıl Sonu Ortalaması</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.NoteEntries)
+                    {
+                        <tr>
+                            <td>@item.PeriodInformation.LessonYear</td>
+                            <td>@item.PeriodInformation.PeriodName</td>
+                            <td>@item.ClassRoom.RoomDepartment</td>
+                            <td>@item.Student.FullName</td>
+                            <td>@item.Lesson.LessonName</td>
+                            <td>@item.Teacher.FullName</td>
+                            <td>@item.MidTermExam1Score</td>
+                            <td>@item.MidTermExam2Score</td>
+                            <td>@item.FinalExamScore</td>
+                            <td>@item.AverageScore</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="NoteEntry" asp-route-id="@item.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+

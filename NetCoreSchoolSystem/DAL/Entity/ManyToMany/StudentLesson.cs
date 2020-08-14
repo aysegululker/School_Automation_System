@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DAL.Entity.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DAL.Entity.ManyToMany
 {
-    public class StudentLesson
+    public class StudentLesson:CoreEntity
     {
         //For the elective course(bir dersin birden fazla öğrencisi vardır. Seçmeli ders için)
 

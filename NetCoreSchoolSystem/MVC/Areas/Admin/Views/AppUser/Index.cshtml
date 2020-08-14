@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DAL.Entity.AppUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="AppUser" class="btn btn-success float-right">Yeni Kullanıcı Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="accounttable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Statüsü</th>
+                        <th>Sil</th>
+                        <th>Kullanıcı Rolü</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model)
+                    {
+                    <tr>
+                        <td>@account.FirstName</td>
+                        <td>@account.SurName</td>
+                        <td>@account.UserName</td>
+                        <td>@account.MemberStatus</td>
+                        <td>
+                            <form asp-action="Delete" asp-route-id="@account.Id" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Sil
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <a asp-action="AssignAdmin" asp-controller="AppUser" asp-route-id="@account.Id" class="btn btn-primary btn-sm">Yönetici Yap</a>
+                            <a asp-action="AssignOgretmen" asp-controller="AppUser" asp-route-id="@account.Id" class="btn btn-primary btn-sm">Öğretmen Yap</a>
+                            <a asp-action="AssignOgrenci" asp-controller="AppUser" asp-route-id="@account.Id" class="btn btn-primary btn-sm">Öğrenci Yap</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#accounttable').DataTable();
+        });
+    </script>
+}
+
+

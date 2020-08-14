@@ -18,12 +18,14 @@ namespace MVC.Areas.Admin.Controllers
         private readonly IPreRegistrationService preRegistrationService;
         private readonly IPeriodInformationService periodInformationService;
         private readonly IClassRoomService classRoomService;
+        private readonly IStudentService studentService;
 
-        public PreRegistrationController(IPreRegistrationService preRegistrationService, IPeriodInformationService periodInformationService, IClassRoomService classRoomService)
+        public PreRegistrationController(IPreRegistrationService preRegistrationService, IPeriodInformationService periodInformationService, IClassRoomService classRoomService, IStudentService studentService)
         {
             this.preRegistrationService = preRegistrationService;
             this.periodInformationService = periodInformationService;
             this.classRoomService = classRoomService;
+            this.studentService = studentService;
         }
 
         // GET: PreRegistration
@@ -46,7 +48,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: PreRegistration/Create
         public ActionResult Create()
         {
-            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.LessonYear, Value = x.ID.ToString() });
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.LessonYear }).Select(x => new SelectListItem() { Text = x.First().LessonYear, Value = x.First().ID.ToString() });
             ViewBag.MainClass = classRoomService.GetActiveRoom().GroupBy(ind => new { ind.Room }).Select(x => new SelectListItem() { Text = x.First().Room, Value = x.First().ID.ToString() });
             return View();
         }
@@ -93,7 +95,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: PreRegistration/Edit/5
         public ActionResult Edit(Guid id)
         {
-            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.LessonYear, Value = x.ID.ToString() });
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.LessonYear }).Select(x => new SelectListItem() { Text = x.First().LessonYear, Value = x.First().ID.ToString() });
             ViewBag.MainClass = classRoomService.GetActiveRoom().GroupBy(ind => new { ind.Room }).Select(x => new SelectListItem() { Text = x.First().Room, Value = x.First().ID.ToString() });
             return View(preRegistrationService.GetById(id));
         }
@@ -144,6 +146,65 @@ namespace MVC.Areas.Admin.Controllers
             }
         }
 
+
+        // GET: PreRegistration/Edit/5
+        public ActionResult CreatStudent(Guid id)
+        {
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.LessonYear }).Select(x => new SelectListItem() { Text = x.First().LessonYear, Value = x.First().ID.ToString() });
+            ViewBag.MainClass = classRoomService.GetActiveRoom().GroupBy(ind => new { ind.Room }).Select(x => new SelectListItem() { Text = x.First().Room, Value = x.First().ID.ToString() });
+            ViewBag.MainRoom = classRoomService.GetActiveRoom().Select(x => new SelectListItem() { Text = x.RoomDepartment, Value = x.ID.ToString() });
+            return View(preRegistrationService.GetById(id));
+        }
+
+        // POST: PreRegistration/CreatStudent/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatStudent(Student student, IFormFile image, PreRegistration preRegistration)
+        {
+            try
+            {
+                string path;
+                if (image == null && student.Gender == "Kız")
+                {
+                    if (student.ImagePath != null)
+                    {
+                        studentService.Update(student);
+                        return RedirectToAction("Index");
+                    }
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\", "kizogrenci.jpg");
+                    student.ImagePath = "kizogrenci.jpg";
+                }
+                else if (image == null && student.Gender == "Erkek")
+                {
+                    if (student.ImagePath != null)
+                    {
+                        studentService.Update(student);
+                        return RedirectToAction("Index");
+                    }
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\", "erkekogrenci.png");
+                    student.ImagePath = "erkekogrenci.png";
+                }
+                else
+                {
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\", image.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+                    student.ImagePath = image.FileName;
+                }
+                studentService.Add(student);
+                preRegistrationService.Remove(preRegistration.ID);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+        }
+
+
+
         // GET: PreRegistration/Delete/5
         public ActionResult Delete(Guid id)
         {
@@ -155,6 +216,7 @@ namespace MVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(PreRegistration preRegistration)
         {
+
             try
             {
                 preRegistrationService.Remove(preRegistration.ID);

@@ -18,6 +18,7 @@
                         <th>Sınıf adı</th>
                         <th>Şube adı</th>
                         <th>Sınıf & Şube</th>
+                        <th>Kapasitesi</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -28,6 +29,7 @@
                             <td>@classRoom.Room</td>
                             <td>@classRoom.ClassDepartment</td>
                             <td>@classRoom.RoomDepartment</td>
+                            <td>@classRoom.Capacity</td>
                             <td>
                                 <a asp-action="Edit" asp-controller="ClassRoom" asp-route-id="@classRoom.ID" class="btn btn-sm btn-warning">Düzenle</a>
                                 <a asp-action="Delete" asp-controller="ClassRoom" asp-route-id="@classRoom.ID" class="btn btn-sm btn-danger">Sil</a>

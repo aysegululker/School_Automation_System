@@ -14,6 +14,16 @@ namespace DAL.Entity
         //This class is defined for creating new student. (Yeni öğrenci oluşturmak için tanımlanmıştır.)
 
         //Todo: Ön kayıt tablosundaki statu aktive olduğunda atacak numara. Onda göre daha sonradan düzeltilecek.
+
+        private static int _recordNumber = 100;
+        public int RecordNumber
+        {
+            get
+            {
+                return _recordNumber;
+            }
+        }
+
         private string _number;
         public string SchoolNumber
         {
@@ -24,22 +34,22 @@ namespace DAL.Entity
             set
             {
                 var yil = DateTime.Now.Year;
-                var deger = 100;
-                var sonuc = deger + "-" + yil;
-
-                if (value != sonuc)
+                var sonuc = RecordNumber.ToString() + "-" + yil.ToString().Substring(2);
+                if(value == sonuc)
                 {
-                    _number = sonuc;
+                    _number = value;
                 }
                 else
                 {
-                    deger++;
-                    _number = deger + "-" + yil;
+                    _number = RecordNumber.ToString() + "-" + yil.ToString().Substring(2);
                 }
+                _recordNumber++;
+
             }
         }
 
         public PeriodInformation LessonYear { get; set; }
+        public string ContinueStatus { get; set; }
 
         //Todo: Ders puanlama sistemi ile ilişkilendirme yapılacak. Encapsulation işlemi
         [Column(TypeName = "decimal(18,2)")]
@@ -48,12 +58,16 @@ namespace DAL.Entity
         public decimal GeneralAverage { get; set; } //Genel Ortalama
 
         public string ParentName { get; set; } //Veli Adı - Soyadı
+        public string ParentCellPhone { get; set; } //Velinin Cep Telefonu
         public string JobPhone { get; set; } //İş telefonu
 
 
         //OneToMany
-        public virtual List<Absenteeism> Absenteeisms { get; set; } //A student has more than one absenteeism (bir öğrencinin birden fazla devamsızlığı vardır)
-        public ClassRoom ClassRoom { get; set; } //A student has one classroom. (Bir öğrencinin bir sınıfı vardır.)
+        public Guid ClassRoomID { get; set; }
+        public virtual ClassRoom ClassRoom { get; set; } //A student has one classroom. (Bir öğrencinin bir sınıfı vardır.)
+
+        public virtual PreRegistration PreRegistration { get; set; }
+        //public virtual List<Absenteeism> Absenteeisms { get; set; } //A student has more than one absenteeism (bir öğrencinin birden fazla devamsızlığı vardır)
 
 
 

@@ -13,18 +13,20 @@ namespace DAL.Entity
         //This class is defined for Absenteeis Tables. (Bu sınıf öğrencilerin devamsızlıklarını takip etmek için tanımlanmıştır.)
 
         //public Student SchoolNumber { get; set; }
-        public ClassRoom ClassRoom { get; set; }
-        public ClassRoom ClassDepartment { get; set; }
-        public bool IsReported { get; set; } //Raporlu mu? Değil mi?
+
+
+        public string IsReported { get; set; } //Raporlu mu? Değil mi?
+
 
         [Column(TypeName = "Datetime2")]
         public DateTime ReportStartDate { get; set; } //Raporun başlangıç tarihi
+
         [Column(TypeName = "Datetime2")]
         public DateTime ReportFinishDate { get; set; } //Raporun bitiş tarihi
 
-        private decimal _reportday;
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal NumberOfDaysWithReport //Raporlu olunan gün sayısı (ondalıklı olabilir)
+        //TODO: Raporlu olan gün sayısı hesaplaması yapılacak
+        private double _reportday;
+        public double NumberOfDaysWithReport //Raporlu olunan gün sayısı (ondalıklı olabilir)
         {
             get
             {
@@ -32,25 +34,26 @@ namespace DAL.Entity
             }
             set
             {
-                var gun = ReportFinishDate - ReportStartDate;
-                var sonuc = decimal.Parse(gun.ToString());
 
-                if (IsReported == false)
+                TimeSpan days = (ReportFinishDate - ReportStartDate);
+                var gun = days.TotalDays;
+                
+                if (gun == 0)
                 {
                     _reportday = 0;
                 }
                 else
                 {
-                    _reportday = sonuc;
+                    _reportday = gun;
                 }
             }
         }
 
 
-        public bool IsGuardStudent { get; set; }
-        private decimal _guardday;
+        public string IsGuardStudent { get; set; }
+        private double _guardday;
         [Column(TypeName = "decimal(18,2)")]
-        public decimal NumberOfDaysWithGuardStudent // Nöbetçi öğrenci mi?
+        public double NumberOfDaysWithGuardStudent // Nöbetçi öğrenci mi?
         {
             get
             {
@@ -58,18 +61,22 @@ namespace DAL.Entity
             }
             set
             {
-                if (IsGuardStudent == false)
+                if (IsGuardStudent == "Evet")
                 {
-                    _guardday = 0;
+                    _guardday = 1;
                 }
                 else
                 {
-                    _guardday = 1;
+                    _guardday = 0;
                 }
             }
         }
 
         //OneToMany
+        public Guid StudentID { get; set; }
         public Student Student { get; set; }
+
+        public Guid ClassRoomID { get; set; }
+        public ClassRoom ClassRoom { get; set; }
     }
 }

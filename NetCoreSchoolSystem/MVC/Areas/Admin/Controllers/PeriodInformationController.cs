@@ -35,7 +35,10 @@ namespace MVC.Areas.Admin.Controllers
         // GET: PeriodInformation/Create
         public ActionResult Create()
         {
-            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.LessonYear, Value = x.ID.ToString() });
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.LessonYear }).Select(x => new SelectListItem() { Text = x.First().LessonYear, Value = x.First().ID.ToString() });
+            ViewBag.MainDonem = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.PeriodName }).Select(x => new SelectListItem() { Text = x.First().PeriodName, Value = x.First().ID.ToString() });
+            ViewBag.MainPerDonem = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.YearPeriod, Value = x.ID.ToString() });
+
             return View();
         }
 
@@ -59,6 +62,9 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             PeriodInformation periodInformation = periodInformationService.GetById(id);
+            ViewBag.MainPeriod = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.LessonYear }).Select(x => new SelectListItem() { Text = x.First().LessonYear, Value = x.First().ID.ToString() });
+            ViewBag.MainDonem = periodInformationService.GetActivePeriodInformation().GroupBy(ind => new { ind.PeriodName }).Select(x => new SelectListItem() { Text = x.First().PeriodName, Value = x.First().ID.ToString() });
+            ViewBag.MainPerDonem = periodInformationService.GetActivePeriodInformation().Select(x => new SelectListItem() { Text = x.YearPeriod, Value = x.ID.ToString() });
             return View(periodInformation);
         }
 

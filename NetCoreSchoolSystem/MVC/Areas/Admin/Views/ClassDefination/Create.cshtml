@@ -1,0 +1,52 @@
+﻿@model DAL.Entity.OneToMany.ClassDefination
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h2>Yeni Ders Oluştur</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <form role="form" asp-action="Create" asp-controller="ClassDefination" method="post">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Ders Yılı</label>
+                                        <select class="form-control custom-select" asp-for="PeriodInformationID" asp-items="ViewBag.MainPeriod">
+                                            <option selected="" disabled>Lütfen Ders Yılı Seçin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bulunduğu Kat</label>
+                                        <select asp-for="FloorLocation" class="form-control custom-select">
+                                            <option disabled selected="">Lütfen Katı Seçiniz</option>
+                                            <option>Zemin Kat</option>
+                                            <option>1.Kat</option>
+                                            <option>2.Kat</option>
+                                            <option>3.Kat</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sınıf</label>
+                                        <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainRoom">
+                                            <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Oluştur</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

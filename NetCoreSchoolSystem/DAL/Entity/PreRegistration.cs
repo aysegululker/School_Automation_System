@@ -12,12 +12,11 @@ namespace DAL.Entity
     {
         //This class is defined in order to be able to pre-register students. (Bu sınıf öğrencilerin ön kaydını yapabilmek için tanımlanmıştır.)
 
-        private static int _recordNumber = 99;
+        private static int _recordNumber = 100;
         public int RecordNumber 
         {
             get
             {
-                _recordNumber++;
                 return _recordNumber;
             } 
         }
@@ -33,7 +32,16 @@ namespace DAL.Entity
             {
                 var yil = DateTime.Now.Year;
                 var sonuc = "pre" + "-" + RecordNumber.ToString() + "-" + yil.ToString().Substring(2);
-                _prenumber = sonuc;
+                if (value == sonuc)
+                {
+                    _prenumber = value;
+                    _recordNumber++;
+                }
+                else
+                {
+                    _prenumber = "pre" + "-" + RecordNumber.ToString() + "-" + yil.ToString().Substring(2);
+                    _recordNumber++;
+                }
             }
 
         }
@@ -52,5 +60,6 @@ namespace DAL.Entity
 
         public Guid ClassRoomID { get; set; }
         public ClassRoom ClassRoom { get; set; }
+
     }
 }

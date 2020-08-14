@@ -12,6 +12,6 @@ namespace MVC.Areas.Admin.Models.ViewModels
         public List<PreRegistration> PreRegistrations { get; set; }
         public List<PeriodInformation> PeriodInformations { get; set; }
         public List<ClassRoom> ClassRooms { get; set; }
-
+        public List<Student> Students { get; set; }
     }
 }

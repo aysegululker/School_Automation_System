@@ -1,0 +1,52 @@
+﻿@model RoomLessonTeacherVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="RoomLessonTeacher" class="btn btn-success float-right">Yeni Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                        <th>Öğretmenin Ana Branşı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var room in Model.RoomLessonTeachers)
+                    {
+                        <tr>
+                            <td>@room.ClassRoom.RoomDepartment</td>
+                            <td>@room.Lesson.LessonName</td>
+                            <td>@room.Teacher.FullName</td>
+                            <td>@room.Branch.BranchName</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="RoomLessonTeacher" asp-route-id="@room.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="RoomLessonTeacher" asp-route-id="@room.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+

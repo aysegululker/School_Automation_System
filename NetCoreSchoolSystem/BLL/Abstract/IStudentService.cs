@@ -14,6 +14,8 @@ namespace BLL.Abstract
         //Listing All (Listeleme)
         List<Student> GetStudent(Expression<Func<Student, bool>> exp);
 
+        List<Student> GetSyllabusStudent();
+
         //Adding (Ekleme)
         void Add(Student student);
 

@@ -13,20 +13,34 @@ namespace DAL.Entity
     {
         //This class is defined for Note Entry Tables. (Bu sınıf not girişleri için tanımlanmıştır.)
 
-        public Student SchoolNumber { get; set; } //Okul No
-        public ClassRoom ClassRoom { get; set; } //Sınıf 9, 10, 11
-        public ClassRoom ClassDepartment { get; set; } // A - B - C
-        public Student StudentName { get; set; } //Öğrenci adı
-        public Student StudentSurName { get; set; } //Öğrenci soyadı
-        public Lesson LessonName { get; set; } //Ders adı
-        public PeriodInformation LessonYear { get; set; } //Ders Yılı
-        public PeriodInformation PeriodName { get; set; } //Dönem Adı...1.Dönem - 2.Dönem
-        public string ExamType { get; set; } //Sınav türü. vize - final
         [Column(TypeName = "decimal(18,2)")]
-        public decimal LessonScore { get; set; } //Ders Notu
-        public Teacher TeacherFirstName { get; set; } //Öğretmen adı
-        public Teacher TeacherSurName { get; set; } //Öğretmen soyadı
+        public decimal MidTermExam1Score { get; set; } //1. Sınavına ait ders notu
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal MidTermExam2Score { get; set; } //Ara Sınavına ait ders notu
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal FinalExamScore { get; set; } //Final sınavına ait ders notu
+
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal AverageScore { get; set; }
+
+
+        public Guid TeacherID { get; set; }
+        public virtual Teacher Teacher { get; set; }
+
+        public Guid PeriodInformationID { get; set; }
+        public virtual PeriodInformation PeriodInformation { get; set; }
+
+        public Guid ClassRoomID { get; set; }
+        public virtual ClassRoom ClassRoom { get; set; }
+
+        public Guid StudentID { get; set; }
+        public virtual Student Student { get; set; }
+
+        public Guid LessonID { get; set; }
+        public virtual Lesson Lesson { get; set; }
 
         //ManyToMany
         public virtual List<TeacherNoteEntry> TeacherNoteEntries { get; set; }

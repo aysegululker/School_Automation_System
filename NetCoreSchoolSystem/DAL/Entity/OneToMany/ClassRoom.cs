@@ -26,12 +26,14 @@ namespace DAL.Entity.OneToMany
             }
         }
 
+        public int Capacity { get; set; } //Sınıf kapasitesi
+
         //OneToMany
-        public ClassDefination ClassDefination { get; set; } //FloorLocation. (bir sınıf bir katta bulunur)
         public virtual List<Student> Students { get; set; } // A class has more than one student. (bir sınıfta birden fazla öğrencisi vardır.)
 
         //ManyToMany
         public virtual List<TeacherClassRoom> TeacherClassRooms { get; set; } //A class has more than one teacher. (Bir sınıfın birden fazla öğretmeni vardır.)
+
 
     }
 }

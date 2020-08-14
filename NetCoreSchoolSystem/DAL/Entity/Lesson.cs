@@ -42,5 +42,6 @@ namespace DAL.Entity
         public virtual List<StudentLesson> StudentLessons { get; set; } //A lesson has more than one student. For the elective course (bir dersin birden fazla öğrencisi vardır. Seçmeli ders için) 
 
         public virtual List<TeacherLesson> TeacherLessons { get; set; } //A teacher can take more than one class. (Bir öğretmen birden fazla derse girebilir. Beden eğitimi hocasının Trafik dersine girmesi gibi.
+
     }
 }

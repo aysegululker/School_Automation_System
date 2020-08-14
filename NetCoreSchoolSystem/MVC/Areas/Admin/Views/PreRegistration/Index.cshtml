@@ -15,9 +15,9 @@
             <table id="registtable" class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Ön Kayıt No</th>
                         <th>TC Kimlik No</th>
                         <th>Ders Yılı</th>
-                        <th>Ön Kayıt No</th>
                         <th>Öğrenci Adı Soyadı</th>
                         <th>Cinsiyeti</th>
                         <th>Doğum Tarihi</th>
@@ -37,30 +37,31 @@
                 <tbody>
                     @foreach (var preRegistration in Model.PreRegistrations)
                     {
-                        <tr>
-                            <td>@preRegistration.IdentificationNumber</td>
-                            <td>@preRegistration.PeriodInformation.LessonYear</td>
-                            <td>@preRegistration.PreSchoolNumber</td>
-                            <td>@preRegistration.FullName</td>
-                            <td>@preRegistration.Gender</td>
-                            <td>@preRegistration.Birthday</td>
-                            <td>@preRegistration.CellPhone</td>
-                            <td>@preRegistration.TheEndSchool</td>
-                            <td>@preRegistration.ClassRoom.Room</td>
-                            <td>@preRegistration.LastGradeAverage</td>
-                            <td>@preRegistration.ParentName</td>
-                            <td>@preRegistration.ParentCellPhone</td>
-                            <td>@preRegistration.Email</td>
-                            <td>@preRegistration.HomePhone</td>
-                            <td>@preRegistration.HomeAddress</td>
-                            <td>
-                                <img src="~/images/@preRegistration.ImagePath" style="width:50px; height:50px;" />
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-warning">Düzenle</a>
-                                <a asp-action="Delete" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-danger">Sil</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@preRegistration.PreSchoolNumber</td>
+                        <td>@preRegistration.IdentificationNumber</td>
+                        <td>@preRegistration.PeriodInformation.LessonYear</td>
+                        <td>@preRegistration.FullName</td>
+                        <td>@preRegistration.Gender</td>
+                        <td>@preRegistration.Birthday</td>
+                        <td>@preRegistration.CellPhone</td>
+                        <td>@preRegistration.TheEndSchool</td>
+                        <td>@preRegistration.ClassRoom.Room</td>
+                        <td>@preRegistration.LastGradeAverage</td>
+                        <td>@preRegistration.ParentName</td>
+                        <td>@preRegistration.ParentCellPhone</td>
+                        <td>@preRegistration.Email</td>
+                        <td>@preRegistration.HomePhone</td>
+                        <td>@preRegistration.HomeAddress</td>
+                        <td>
+                            <img src="~/images/@preRegistration.ImagePath" style="width:50px; height:50px;" />
+                        </td>
+                        <td>
+                            <a asp-action="CreatStudent" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-success">Kayıt Et</a>
+                            <a asp-action="Edit" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                            <a asp-action="Delete" asp-controller="PreRegistration" asp-route-id="@preRegistration.ID" class="btn btn-sm btn-danger">Sil</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

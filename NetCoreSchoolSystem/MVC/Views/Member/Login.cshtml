@@ -1,0 +1,43 @@
+﻿@model MVC.Areas.Admin.Models.ViewModels.AppUserVM
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_HomePageLayout.cshtml";
+}
+
+
+<!-- Signup-->
+<section class="signup-section" id="signup">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 mx-auto text-center">
+                <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                <h2 class="text-white mb-5">Kullanıcı Girişi</h2>
+
+                <form asp-action="Login" asp-controller="Member" method="post">
+                    <div class="form-group">
+                        <label class="text-white mb-4">Kullanıcı Adı</label>
+                        <input asp-for="UserName" type="text" class="form-group" placeholder="Kullanıcı Adı" />
+                    </div>
+                    <div class="form-group">
+                        <label class="text-white mb-4">Şifre</label>
+                        <input asp-for="Password" type="text" class="form-group" placeholder="Şifre (TC No)" />
+                    </div>
+                    <div class="form-group">
+                        <label class="text-white mb-4">Statü</label>
+                        <select asp-for="MemberStatus" class="form-control custom-select">
+                            <option disabled selected="">Lütfen Statü Seçiniz</option>
+                            <option>Yönetim</option>
+                            <option>Öğretmen</option>
+                            <option>Öğrenci</option>
+                        </select>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

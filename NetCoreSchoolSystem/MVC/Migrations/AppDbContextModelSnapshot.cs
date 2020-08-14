@@ -31,10 +31,7 @@ namespace MVC.Migrations
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClassDepartmentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ClassRoomID")
+                    b.Property<Guid>("ClassRoomID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedAdUserName")
@@ -76,11 +73,11 @@ namespace MVC.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsGuardStudent")
-                        .HasColumnType("bit");
+                    b.Property<string>("IsGuardStudent")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsReported")
-                        .HasColumnType("bit");
+                    b.Property<string>("IsReported")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModifiedAdUserName")
                         .HasColumnType("nvarchar(max)");
@@ -100,8 +97,8 @@ namespace MVC.Migrations
                     b.Property<decimal>("NumberOfDaysWithGuardStudent")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("NumberOfDaysWithReport")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("NumberOfDaysWithReport")
+                        .HasColumnType("float");
 
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
@@ -115,15 +112,13 @@ namespace MVC.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("StudentID")
+                    b.Property<Guid>("StudentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ClassDepartmentID");
 
                     b.HasIndex("ClassRoomID");
 
@@ -155,9 +150,6 @@ namespace MVC.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("IdentificationNumber")
                         .HasColumnType("nvarchar(11)")
                         .HasMaxLength(11);
@@ -167,6 +159,9 @@ namespace MVC.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("MemberStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -184,9 +179,6 @@ namespace MVC.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("SchoolNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -429,127 +421,7 @@ namespace MVC.Migrations
                     b.ToTable("LessonHours");
                 });
 
-            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentLesson", b =>
-                {
-                    b.Property<Guid>("StudentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LessonID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentID", "LessonID");
-
-                    b.HasIndex("LessonID");
-
-                    b.ToTable("StudentLessons");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentSuccessDocument", b =>
-                {
-                    b.Property<Guid>("StudentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SuccessDocumentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentID", "SuccessDocumentID");
-
-                    b.HasIndex("SuccessDocumentID");
-
-                    b.ToTable("StudentSuccessDocuments");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentSyllabusTable", b =>
-                {
-                    b.Property<Guid>("StudentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SyllabusTableID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentID", "SyllabusTableID");
-
-                    b.HasIndex("SyllabusTableID");
-
-                    b.ToTable("StudentSyllabusTables");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentTeacher", b =>
-                {
-                    b.Property<Guid>("StudentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TeacherID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StudentID", "TeacherID");
-
-                    b.HasIndex("TeacherID");
-
-                    b.ToTable("StudentTeachers");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherClassRoom", b =>
-                {
-                    b.Property<Guid>("TeacherID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ClassRoomID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TeacherID", "ClassRoomID");
-
-                    b.HasIndex("ClassRoomID");
-
-                    b.ToTable("TeacherClassRooms");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherLesson", b =>
-                {
-                    b.Property<Guid>("TeacherID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LessonID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TeacherID", "LessonID");
-
-                    b.HasIndex("LessonID");
-
-                    b.ToTable("TeacherLessons");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherNoteEntry", b =>
-                {
-                    b.Property<Guid>("TeacherID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("NoteEntryID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TeacherID", "NoteEntryID");
-
-                    b.HasIndex("NoteEntryID");
-
-                    b.ToTable("TeacherNoteEntries");
-                });
-
-            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherSyllabusTable", b =>
-                {
-                    b.Property<Guid>("TeacherID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SyllabusTableID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TeacherID", "SyllabusTableID");
-
-                    b.HasIndex("SyllabusTableID");
-
-                    b.ToTable("TeacherSyllabusTables");
-                });
-
-            modelBuilder.Entity("DAL.Entity.NoteEntry", b =>
+            modelBuilder.Entity("DAL.Entity.ManyToMany.RoomLessonTeacher", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
@@ -558,13 +430,13 @@ namespace MVC.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("BranchID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClassDepartmentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ClassRoomID")
+                    b.Property<Guid>("ClassRoomID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedAdUserName")
@@ -588,7 +460,98 @@ namespace MVC.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ExamType")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("LessonID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BranchID");
+
+                    b.HasIndex("ClassRoomID");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("RoomLessonTeachers");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentLesson", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -609,13 +572,7 @@ namespace MVC.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("LessonNameID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("LessonScore")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("LessonYearID")
+                    b.Property<Guid>("LessonID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedAdUserName")
@@ -633,54 +590,770 @@ namespace MVC.Migrations
                     b.Property<string>("ModifiedIP")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PeriodNameID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("SchoolNumberID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("StudentNameID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("StudentSurNameID")
+                    b.Property<Guid>("StudentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TeacherFirstNameID")
+                    b.HasKey("ID");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("StudentLessons");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentSuccessDocument", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TeacherSurNameID")
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SuccessDocumentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("StudentID");
+
+                    b.HasIndex("SuccessDocumentID");
+
+                    b.ToTable("StudentSuccessDocuments");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentSyllabusTable", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SyllabusTableID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ClassDepartmentID");
+                    b.HasIndex("StudentID");
+
+                    b.HasIndex("SyllabusTableID");
+
+                    b.ToTable("StudentSyllabusTables");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.StudentTeacher", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("StudentID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("StudentTeachers");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherClassRoom", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ClassRoomID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
 
                     b.HasIndex("ClassRoomID");
 
-                    b.HasIndex("LessonNameID");
+                    b.HasIndex("TeacherID");
 
-                    b.HasIndex("LessonYearID");
+                    b.ToTable("TeacherClassRooms");
+                });
 
-                    b.HasIndex("PeriodNameID");
+            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherLesson", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("SchoolNumberID");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("StudentNameID");
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("StudentSurNameID");
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("TeacherFirstNameID");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("TeacherSurNameID");
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("LessonID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("TeacherLessons");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherNoteEntry", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("NoteEntryID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("NoteEntryID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("TeacherNoteEntries");
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.TeacherSyllabusTable", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SyllabusTableID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SyllabusTableID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("TeacherSyllabusTables");
+                });
+
+            modelBuilder.Entity("DAL.Entity.NoteEntry", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AverageScore")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CellPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ClassRoomID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("FinalExamScore")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("LessonID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("MidTermExam1Score")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MidTermExam2Score")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ModifiedAdUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PeriodInformationID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClassRoomID");
+
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("PeriodInformationID");
+
+                    b.HasIndex("StudentID");
+
+                    b.HasIndex("TeacherID");
 
                     b.ToTable("NoteEntries");
                 });
@@ -777,11 +1450,11 @@ namespace MVC.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ClassRoomID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedAdUserName")
                         .HasColumnType("nvarchar(max)");
@@ -825,9 +1498,6 @@ namespace MVC.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("LessonYearID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ModifiedAdUserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -843,6 +1513,9 @@ namespace MVC.Migrations
                     b.Property<string>("ModifiedIP")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PeriodInformationID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
 
@@ -854,7 +1527,9 @@ namespace MVC.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LessonYearID");
+                    b.HasIndex("ClassRoomID");
+
+                    b.HasIndex("PeriodInformationID");
 
                     b.ToTable("ClassDefinations");
                 });
@@ -868,11 +1543,11 @@ namespace MVC.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ClassDefinationID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ClassDepartment")
                         .HasColumnType("nvarchar(max)");
@@ -944,8 +1619,6 @@ namespace MVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ClassDefinationID");
 
                     b.ToTable("ClassRooms");
                 });
@@ -1162,8 +1835,11 @@ namespace MVC.Migrations
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClassRoomID")
+                    b.Property<Guid>("ClassRoomID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContinueStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedAdUserName")
                         .HasColumnType("nvarchar(max)");
@@ -1228,8 +1904,14 @@ namespace MVC.Migrations
                     b.Property<string>("ModifiedIP")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParentCellPhone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ParentName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PreRegistrationID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
@@ -1251,6 +1933,8 @@ namespace MVC.Migrations
                     b.HasIndex("ClassRoomID");
 
                     b.HasIndex("LessonYearID");
+
+                    b.HasIndex("PreRegistrationID");
 
                     b.ToTable("Students");
                 });
@@ -1445,6 +2129,9 @@ namespace MVC.Migrations
                     b.Property<string>("CellPhone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ClassRoomID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CreatedAdUserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1459,6 +2146,9 @@ namespace MVC.Migrations
 
                     b.Property<string>("CreatedIP")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
 
                     b.Property<string>("District")
                         .HasColumnType("nvarchar(max)");
@@ -1484,10 +2174,10 @@ namespace MVC.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("LessonHourID")
+                    b.Property<Guid>("LessonHourID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("LessonNameID")
+                    b.Property<Guid>("LessonID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedAdUserName")
@@ -1514,14 +2204,18 @@ namespace MVC.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WeekDays")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ClassRoomID");
+
                     b.HasIndex("LessonHourID");
 
-                    b.HasIndex("LessonNameID");
+                    b.HasIndex("LessonID");
+
+                    b.HasIndex("TeacherID");
 
                     b.ToTable("SyllabusTables");
                 });
@@ -1714,17 +2408,44 @@ namespace MVC.Migrations
 
             modelBuilder.Entity("DAL.Entity.Absenteeism", b =>
                 {
-                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassDepartment")
+                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany()
-                        .HasForeignKey("ClassDepartmentID");
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entity.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DAL.Entity.ManyToMany.RoomLessonTeacher", b =>
+                {
+                    b.HasOne("DAL.Entity.OneToMany.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany()
-                        .HasForeignKey("ClassRoomID");
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.Student", "Student")
-                        .WithMany("Absenteeisms")
-                        .HasForeignKey("StudentID");
+                    b.HasOne("DAL.Entity.Lesson", "Lesson")
+                        .WithMany()
+                        .HasForeignKey("LessonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entity.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entity.ManyToMany.StudentLesson", b =>
@@ -1849,59 +2570,50 @@ namespace MVC.Migrations
 
             modelBuilder.Entity("DAL.Entity.NoteEntry", b =>
                 {
-                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassDepartment")
-                        .WithMany()
-                        .HasForeignKey("ClassDepartmentID");
-
                     b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany()
-                        .HasForeignKey("ClassRoomID");
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.Lesson", "LessonName")
+                    b.HasOne("DAL.Entity.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("LessonNameID");
+                        .HasForeignKey("LessonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.PeriodInformation", "LessonYear")
+                    b.HasOne("DAL.Entity.PeriodInformation", "PeriodInformation")
                         .WithMany()
-                        .HasForeignKey("LessonYearID");
+                        .HasForeignKey("PeriodInformationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.PeriodInformation", "PeriodName")
+                    b.HasOne("DAL.Entity.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("PeriodNameID");
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.Student", "SchoolNumber")
+                    b.HasOne("DAL.Entity.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("SchoolNumberID");
-
-                    b.HasOne("DAL.Entity.Student", "StudentName")
-                        .WithMany()
-                        .HasForeignKey("StudentNameID");
-
-                    b.HasOne("DAL.Entity.Student", "StudentSurName")
-                        .WithMany()
-                        .HasForeignKey("StudentSurNameID");
-
-                    b.HasOne("DAL.Entity.Teacher", "TeacherFirstName")
-                        .WithMany()
-                        .HasForeignKey("TeacherFirstNameID");
-
-                    b.HasOne("DAL.Entity.Teacher", "TeacherSurName")
-                        .WithMany()
-                        .HasForeignKey("TeacherSurNameID");
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entity.OneToMany.ClassDefination", b =>
                 {
-                    b.HasOne("DAL.Entity.PeriodInformation", "LessonYear")
+                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany()
-                        .HasForeignKey("LessonYearID");
-                });
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("DAL.Entity.OneToMany.ClassRoom", b =>
-                {
-                    b.HasOne("DAL.Entity.OneToMany.ClassDefination", "ClassDefination")
-                        .WithMany("ClassRooms")
-                        .HasForeignKey("ClassDefinationID");
+                    b.HasOne("DAL.Entity.PeriodInformation", "PeriodInformation")
+                        .WithMany()
+                        .HasForeignKey("PeriodInformationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entity.PreRegistration", b =>
@@ -1923,11 +2635,17 @@ namespace MVC.Migrations
                 {
                     b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
                         .WithMany("Students")
-                        .HasForeignKey("ClassRoomID");
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DAL.Entity.PeriodInformation", "LessonYear")
                         .WithMany()
                         .HasForeignKey("LessonYearID");
+
+                    b.HasOne("DAL.Entity.PreRegistration", "PreRegistration")
+                        .WithMany()
+                        .HasForeignKey("PreRegistrationID");
                 });
 
             modelBuilder.Entity("DAL.Entity.SuccessDocument", b =>
@@ -1947,13 +2665,29 @@ namespace MVC.Migrations
 
             modelBuilder.Entity("DAL.Entity.SyllabusTable", b =>
                 {
+                    b.HasOne("DAL.Entity.OneToMany.ClassRoom", "ClassRoom")
+                        .WithMany()
+                        .HasForeignKey("ClassRoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DAL.Entity.LessonHour", "LessonHour")
                         .WithMany()
-                        .HasForeignKey("LessonHourID");
+                        .HasForeignKey("LessonHourID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entity.Lesson", "LessonName")
+                    b.HasOne("DAL.Entity.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("LessonNameID");
+                        .HasForeignKey("LessonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entity.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entity.Teacher", b =>

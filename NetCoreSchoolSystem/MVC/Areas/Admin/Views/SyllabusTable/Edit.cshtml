@@ -1,0 +1,64 @@
+﻿@model DAL.Entity.SyllabusTable
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h2>Düzenle</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <form role="form" asp-action="Edit" asp-controller="SyllabusTable" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Sınıf</label>
+                                    <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainRoom">
+                                        <option selected="" disabled>Lütfen Sınıf Seçiniz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ders</label>
+                                    <select class="form-control custom-select" asp-for="LessonID" asp-items="ViewBag.MainLesson">
+                                        <option selected="" disabled>Lütfen Ders Seçiniz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ders Saati</label>
+                                    <select class="form-control custom-select" asp-for="LessonHourID" asp-items="ViewBag.MainHour">
+                                        <option selected="" disabled>Lütfen Saat Seçiniz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gün</label>
+                                    <select asp-for="Day" class="form-control custom-select">
+                                        <option disabled selected="">Lütfen Ders Gününü Seçiniz</option>
+                                        <option>Pazartesi</option>
+                                        <option>Salı</option>
+                                        <option>Çarşamba</option>
+                                        <option>Perşembe</option>
+                                        <option>Cuma</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğretmen</label>
+                                    <select class="form-control custom-select" asp-for="TeacherID" asp-items="ViewBag.MainTeachers">
+                                        <option selected="" disabled>Lütfen Öğretmen Seçiniz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Düzenle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -9,6 +9,7 @@ using DAL.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +47,13 @@ namespace MVC
             services.AddScoped<ITeacherService, TeacherRepository>();
             services.AddScoped<IPreRegistrationService, PreRegistrationRepository>();
             services.AddScoped<IStudentService, StudentRepository>();
+            services.AddScoped<IClassDefinationService, ClassDefinationRepository>();
+            services.AddScoped<IRoomLessonTeacherService, RoomLessonTeacherRepository>();
+            services.AddScoped<IAbsenteeismService, AbsenteeismRepository>();
+            services.AddScoped<ISyllabusTableService, SyllabusTableRepository>();
+            services.AddScoped<INoteEntryService, NoteEntryRepository>();
+            services.AddScoped<ITeacherSyllabusTableService, TeacherSyllabusTableRepository>();
+
 
             //Identity
             services.AddIdentity<AppUser, AppUserRole>().AddEntityFrameworkStores<AppDbContext>();
@@ -59,6 +67,9 @@ namespace MVC
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.UseAuthentication();
+            app.UseAuthorization();//kimlik doðrulama
             
             app.UseRouting();
             app.UseStaticFiles();

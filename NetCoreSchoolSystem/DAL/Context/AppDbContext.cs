@@ -29,7 +29,7 @@ namespace DAL.Context
         public DbSet<SyllabusTable> SyllabusTables { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
 
-        
+
         //OneToMany Tables
         public DbSet<Branch> Branches { get; set; }
         public DbSet<ClassDefination> ClassDefinations { get; set; }
@@ -44,20 +44,22 @@ namespace DAL.Context
         public DbSet<TeacherLesson> TeacherLessons { get; set; }
         public DbSet<TeacherNoteEntry> TeacherNoteEntries { get; set; }
         public DbSet<TeacherSyllabusTable> TeacherSyllabusTables { get; set; }
+        public DbSet<RoomLessonTeacher> RoomLessonTeachers { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<StudentLesson>().HasKey(x => new { x.StudentID, x.LessonID });
-            builder.Entity<StudentSuccessDocument>().HasKey(x => new { x.StudentID, x.SuccessDocumentID });
-            builder.Entity<StudentSyllabusTable>().HasKey(x => new { x.StudentID, x.SyllabusTableID });
-            builder.Entity<StudentTeacher>().HasKey(x => new { x.StudentID, x.TeacherID });
-            builder.Entity<TeacherClassRoom>().HasKey(x => new { x.TeacherID, x.ClassRoomID });
-            builder.Entity<TeacherLesson>().HasKey(x => new { x.TeacherID, x.LessonID });
-            builder.Entity<TeacherNoteEntry>().HasKey(x => new { x.TeacherID, x.NoteEntryID });
-            builder.Entity<TeacherSyllabusTable>().HasKey(x => new { x.TeacherID, x.SyllabusTableID });
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<StudentLesson>().HasKey(x => new { x.StudentID, x.LessonID });
+        //    builder.Entity<StudentSuccessDocument>().HasKey(x => new { x.StudentID, x.SuccessDocumentID });
+        //    builder.Entity<StudentSyllabusTable>().HasKey(x => new { x.StudentID, x.SyllabusTableID });
+        //    builder.Entity<StudentTeacher>().HasKey(x => new { x.StudentID, x.TeacherID });
+        //    builder.Entity<TeacherClassRoom>().HasKey(x => new { x.TeacherID, x.ClassRoomID });
+        //    builder.Entity<TeacherLesson>().HasKey(x => new { x.TeacherID, x.LessonID });
+        //    builder.Entity<TeacherNoteEntry>().HasKey(x => new { x.TeacherID, x.NoteEntryID });
+        //    builder.Entity<TeacherSyllabusTable>().HasKey(x => new { x.TeacherID, x.SyllabusTableID });
+        //    builder.Entity<RoomLesson>().HasKey(x => new { x.ClassRoomID, x.LessonID });
 
-            base.OnModelCreating(builder);
-        }
+        //    base.OnModelCreating(builder);
+        //}
     }
 }

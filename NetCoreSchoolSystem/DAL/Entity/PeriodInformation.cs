@@ -21,5 +21,12 @@ namespace DAL.Entity
         [Column(TypeName = "Datetime2")]
         public DateTime PeriodFinishDate { get; set; } //Dönem Bitiş Tarihi
 
+        public string YearPeriod
+        {
+            get
+            {
+                return (LessonYear + " - " + PeriodName);
+            }
+        }
     }
 }

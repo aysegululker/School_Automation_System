@@ -1,0 +1,73 @@
+﻿@model RoomLessonTeacherEkVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Ogretmen/Views/Shared/_OgretmenLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var room in Model.RoomLessonTeachers)
+                    {
+                    <tr>
+                        <td>
+                            @foreach (var item in Model.ClassRooms)
+                            {
+                                if (item.ID == room.ClassRoomID)
+                                {
+                                    <span>@item.RoomDepartment</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (var item in Model.Lessons)
+                            {
+                                if (item.ID == room.LessonID)
+                                {
+                                    <span>@item.LessonName</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (var item in Model.Teachers)
+                            {
+                                if (item.ID == room.TeacherID)
+                                {
+                                    <span>@item.FullName</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="DetaySinif" asp-controller="ClassRoom" asp-route-id="@room.ClassRoomID" class="btn btn-sm btn-primary">Detay</a>
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+
+
+

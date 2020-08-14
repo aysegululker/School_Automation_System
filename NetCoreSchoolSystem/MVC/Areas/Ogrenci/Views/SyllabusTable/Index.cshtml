@@ -1,0 +1,49 @@
+﻿@model StudentSyllabusTableVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Ogrenci/Views/Shared/_OgrenciLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Ders Programı</h2>
+        </div>
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Ders Günü</th>
+                        <th>Ders Saati</th>
+                        <th>Ders Adı</th>
+                        <th>Öğretmen Adı & Soyadı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lesson in Model.SyllabusTables)
+                    {
+                        <tr>
+                            <td>@lesson.ClassRoom.RoomDepartment</td>
+                            <td>@lesson.Day</td>
+                            <td>@lesson.LessonHour.LesHour</td>
+                            <td>@lesson.Lesson.LessonName</td>
+                            <td>@lesson.Teacher.FullName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+

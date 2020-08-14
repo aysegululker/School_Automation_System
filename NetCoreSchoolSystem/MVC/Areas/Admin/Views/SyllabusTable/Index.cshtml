@@ -1,0 +1,46 @@
+﻿@model SyllabusTableVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="SyllabusTable" class="btn btn-success float-right">Yeni Ders Programı Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="syllbustable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var room in Model.ClassRooms)
+                    {
+                        <tr>
+                            <td>@room.RoomDepartment</td>
+                            <td>
+                                <a asp-action="Details" asp-controller="SyllabusTable" asp-route-id="@room.ID" class="btn btn-sm btn-primary">Detay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#syllbustable').DataTable();
+        });
+    </script>
+}
+
+

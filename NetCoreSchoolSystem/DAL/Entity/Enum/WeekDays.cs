@@ -6,10 +6,10 @@ namespace DAL.Entity.Enum
 {
     public enum WeekDays
     {
-        Monday, //Pazartesi
-        Tuesday, //Salı
-        Wednesday, //Çarşamba
-        Thursday, //Perşembe
-        Friday //Cuma
+        Pazartesi, //Pazartesi, Monday
+        Salı, //Salı, Tuesday
+        Çarşamba, //Çarşamba, Wednesday
+        Perşembe, //Perşembe, Thursday
+        Cuma //Cuma, Friday
     }
 }

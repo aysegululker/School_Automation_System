@@ -1,0 +1,44 @@
+﻿@model DetaySinifVM
+@{
+    ViewData["Title"] = "DetaySinif";
+    Layout = "~/Areas/Ogretmen/Views/Shared/_OgretmenLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-body">
+            <table id="cardtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sınıf</th>
+                        <th>Öğrenci Adı & Soyadı</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Students)
+                    {
+                        <tr>
+                            <td>@item.ClassRoom.RoomDepartment</td>
+                            <td>@item.FullName</td>
+                            <td>
+                                <a asp-action="Index" asp-controller="NoteEntry" asp-route-id="@item.ID" class="btn btn-sm btn-primary">Detay</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cardtable').DataTable();
+        });
+    </script>
+}
+

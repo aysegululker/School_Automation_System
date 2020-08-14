@@ -1,0 +1,74 @@
+﻿@model DAL.Entity.NoteEntry
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Ogretmen/Views/Shared/_OgretmenLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h2>Yeni Not Oluştur</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <form role="form" asp-action="Create" asp-controller="NoteEntry" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Dönem & Period</label>
+                                    <select class="form-control custom-select" asp-for="PeriodInformationID" asp-items="ViewBag.MainPerDonem">
+                                        <option selected="" disabled>Lütfen Dönem Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğretmen Adı & Soyadı</label>
+                                    <select class="form-control custom-select" asp-for="TeacherID" asp-items="ViewBag.MainTeachers">
+                                        <option selected="" disabled>Lütfen Öğretmen Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sınıf</label>
+                                    <select class="form-control custom-select" asp-for="ClassRoomID" asp-items="ViewBag.MainRoom">
+                                        <option selected="" disabled>Lütfen Sınıfı Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Öğrenci Adı & Soyadı</label>
+                                    <select class="form-control custom-select" asp-for="StudentID" asp-items="ViewBag.MainStudent">
+                                        <option selected="" disabled>Lütfen Öğrenci Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ders Adı</label>
+                                    <select class="form-control custom-select" asp-for="LessonID" asp-items="ViewBag.MainLesson">
+                                        <option selected="" disabled>Lütfen Ders Seçin</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Birinci Sınav Notu</label>
+                                    <br />
+                                    <input asp-for="MidTermExam1Score" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ara Sınav Notu</label>
+                                    <br />
+                                    <input asp-for="MidTermExam2Score" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Final Sınav Notu</label>
+                                    <br />
+                                    <input asp-for="FinalExamScore" type="text" class="form-group" placeholder="ondalıklı olarak giriniz" />
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Oluştur</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

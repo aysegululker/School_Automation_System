@@ -1,0 +1,60 @@
+﻿@model StudentAbsenteeismVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Ogrenci/Views/Shared/_OgrenciLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Devamsızlık Tablosu</h2>
+        </div>
+
+        <div class="card-body">
+            <table id="absenteeismtable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Okul No</th>
+                        <th>Sınıf</th>
+                        <th>Öğrenci Adı & Soyadı</th>
+                        <th>Cinsiyeti</th>
+                        <th>Raporlu mu/Değil mi?</th>
+                        <th>Rapor Başlangıç Tarihi</th>
+                        <th>Rapor Bitiş Tarihi</th>
+                        <th>Raporlu Olunan Gün Sayısı</th>
+                        <th>Nöbetçi Öğrenci mi?</th>
+                        <th>Nöbetçi Olunan Gün Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var absenteeism in Model.Absenteeisms)
+                    {
+                        <tr>
+                            <td>@absenteeism.Student.SchoolNumber</td>
+                            <td>@absenteeism.ClassRoom.RoomDepartment</td>
+                            <td>@absenteeism.Student.FullName</td>
+                            <td>@absenteeism.Student.Gender</td>
+                            <td>@absenteeism.IsReported</td>
+                            <td>@absenteeism.ReportStartDate</td>
+                            <td>@absenteeism.ReportFinishDate</td>
+                            <td>@absenteeism.NumberOfDaysWithReport</td>
+                            <td>@absenteeism.IsGuardStudent</td>
+                            <td>@absenteeism.NumberOfDaysWithGuardStudent</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#absenteeismtable').DataTable();
+        });
+    </script>
+}
+
+

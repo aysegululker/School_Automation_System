@@ -4,5 +4,73 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="Student" class="btn btn-success float-right">Yeni Öğrenci Oluştur</a>
+        </div>
+
+        <div class="card-body">
+            <table id="studenttable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Okul No</th>
+                        <th>TC Kimlik No</th>
+                        <th>Sınıf</th>
+                        <th>Öğrenci Adı Soyadı</th>
+                        <th>Cinsiyeti</th>
+                        <th>Devam Durumu</th>
+                        <th>Genel Not Ortalama</th>
+                        <th>Cep Telefon Numarası</th>
+                        <th>Doğum Tarihi</th>
+                        <th>Veli Adı Soyadı</th>
+                        <th>Velinin Cep Telefonu</th>
+                        <th>Veli E-mail</th>
+                        <th>Ev Telefonu</th>
+                        <th>Ev Adresi</th>
+                        <th>Resim</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>@student.SchoolNumber</td>
+                            <td>@student.IdentificationNumber</td>
+                            <td>@student.ClassRoom.RoomDepartment</td>
+                            <td>@student.FullName</td>
+                            <td>@student.Gender</td>
+                            <td>@student.ContinueStatus</td>
+                            <td>@student.GeneralAverage</td>
+                            <td>@student.CellPhone</td>
+                            <td>@student.Birthday</td>
+                            <td>@student.ParentName</td>
+                            <td>@student.ParentCellPhone</td>
+                            <td>@student.Email</td>
+                            <td>@student.HomePhone</td>
+                            <td>@student.HomeAddress</td>
+                            <td>
+                                <img src="~/images/@student.ImagePath" style="width:50px; height:50px;" />
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="Student" asp-route-id="@student.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="Student" asp-route-id="@student.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#studenttable').DataTable();
+        });
+    </script>
+}
 

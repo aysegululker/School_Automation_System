@@ -29,7 +29,6 @@ namespace MVC.Areas.Admin.Controllers
             TeacherVM teacherVM = new TeacherVM();
             teacherVM.Teachers = teacherService.GetActiveTeacher();
             teacherVM.Branches = branchService.GetActiveBranch();
-            //return View(teacherService.GetActiveTeacher());
             return View(teacherVM);
         }
 
@@ -43,6 +42,7 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MainBranches = branchService.GetActiveBranch().Select(x => new SelectListItem() { Text = x.BranchName, Value = x.ID.ToString() });
+            ViewBag.MainTeachers = teacherService.GetActiveTeacher().Select(x => new SelectListItem() { Text = x.FullName, Value = x.ID.ToString() });
             return View();
         }
 
@@ -66,6 +66,7 @@ namespace MVC.Areas.Admin.Controllers
         public ActionResult Edit(Guid id)
         {
             ViewBag.MainBranches = branchService.GetActiveBranch().Select(x => new SelectListItem() { Text = x.BranchName, Value = x.ID.ToString() });
+            ViewBag.MainTeachers = teacherService.GetActiveTeacher().Select(x => new SelectListItem() { Text = x.FullName, Value = x.ID.ToString() });
             return View(teacherService.GetById(id));
         }
 

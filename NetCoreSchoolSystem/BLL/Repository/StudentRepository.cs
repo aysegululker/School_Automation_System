@@ -44,6 +44,13 @@ namespace BLL.Repository
             return context.Students.Where(exp).ToList();
         }
 
+        public List<Student> GetSyllabusStudent()
+        {
+            AppUser appUser = new AppUser();
+            var kullanici = appUser.UserName;
+            return context.Students.Where(x => x.IdentificationNumber == kullanici).ToList();
+        }
+
         public void Remove(Guid id)
         {
             Student student = GetById(id);

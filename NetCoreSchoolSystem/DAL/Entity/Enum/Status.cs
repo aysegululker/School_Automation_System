@@ -10,7 +10,7 @@ namespace DAL.Entity.Enum
         Active = 1,
         Updated = 2,
         Deleted = 3,
-        PreRegistrationed = 4, //Ön kayıt tablosu için
-        Disconnected = 5 //İlişkisi kesilenler için
+        //PreRegistrationed = 4, //Ön kayıt tablosu için
+        //Disconnected = 5 //İlişkisi kesilenler için
     }
 }

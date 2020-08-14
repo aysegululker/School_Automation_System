@@ -1,0 +1,51 @@
+﻿@model ClassDefinationVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <a asp-action="Create" asp-controller="ClassDefination" class="btn btn-success float-right">Yeni Sınıf Atama</a>
+        </div>
+
+        <div class="card-body">
+            <table id="classdeftable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Ders Yılı</th>
+                        <th>Bulunduğu Kat</th>
+                        <th>Sınıf</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var classDefination in Model.ClassDefinations)
+                    {
+
+                        <tr>
+                            <td>@classDefination.PeriodInformation.LessonYear</td>
+                            <td>@classDefination.FloorLocation</td>
+                            <td>@classDefination.ClassRoom.RoomDepartment</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="ClassDefination" asp-route-id="@classDefination.ID" class="btn btn-sm btn-warning">Düzenle</a>
+                                <a asp-action="Delete" asp-controller="ClassDefination" asp-route-id="@classDefination.ID" class="btn btn-sm btn-danger">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#classdeftable').DataTable();
+        });
+    </script>
+}
+
