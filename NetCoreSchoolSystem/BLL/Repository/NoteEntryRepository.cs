@@ -41,8 +41,9 @@ namespace BLL.Repository
 
         public List<NoteEntry> GetNote(Expression<Func<NoteEntry, bool>> exp)
         {
-            throw new NotImplementedException();
+            return context.NoteEntries.Where(exp).ToList();
         }
+
 
         public void Remove(Guid id)
         {

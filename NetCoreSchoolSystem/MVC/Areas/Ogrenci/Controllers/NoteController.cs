@@ -84,7 +84,7 @@ namespace MVC.Areas.Ogrenci.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                
 
                 return RedirectToAction(nameof(Index));
             }
@@ -107,7 +107,7 @@ namespace MVC.Areas.Ogrenci.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                
 
                 return RedirectToAction(nameof(Index));
             }

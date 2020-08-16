@@ -31,5 +31,6 @@ namespace BLL.Abstract
 
         //Condition (Şart)
         bool Any(Expression<Func<NoteEntry, bool>> exp);
+
     }
 }

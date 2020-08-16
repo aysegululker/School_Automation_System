@@ -13,7 +13,7 @@ namespace DAL.Entity
     {
         //This class is defined for creating new student. (Yeni öğrenci oluşturmak için tanımlanmıştır.)
 
-        //Todo: Ön kayıt tablosundaki statu aktive olduğunda atacak numara. Onda göre daha sonradan düzeltilecek.
+        
 
         private static int _recordNumber = 100;
         public int RecordNumber
@@ -51,7 +51,7 @@ namespace DAL.Entity
         public PeriodInformation LessonYear { get; set; }
         public string ContinueStatus { get; set; }
 
-        //Todo: Ders puanlama sistemi ile ilişkilendirme yapılacak. Encapsulation işlemi
+        
         [Column(TypeName = "decimal(18,2)")]
         public decimal YearEndAverage { get; set; } //Yıl sonu not ortalaması
         [Column(TypeName = "decimal(18,2)")]

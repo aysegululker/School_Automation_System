@@ -24,7 +24,7 @@ namespace DAL.Entity
         [Column(TypeName = "Datetime2")]
         public DateTime ReportFinishDate { get; set; } //Raporun bitiş tarihi
 
-        //TODO: Raporlu olan gün sayısı hesaplaması yapılacak
+        
         private double _reportday;
         public double NumberOfDaysWithReport //Raporlu olunan gün sayısı (ondalıklı olabilir)
         {

@@ -35,7 +35,7 @@ namespace MVC.Areas.Admin.Controllers
         // GET: Lesson/Create
         public ActionResult Create()
         {
-            //Todo:Ders kategorisi enum'a bağlanacak.
+            
             ViewBag.MainLesson = lessonService.GetActiveLesson().Select(x => new SelectListItem() { Text = x.LessonName, Value = x.ID.ToString() });
             return View();
         }

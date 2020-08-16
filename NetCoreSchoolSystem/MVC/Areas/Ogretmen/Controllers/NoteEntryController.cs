@@ -138,7 +138,7 @@ namespace MVC.Areas.Ogretmen.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                
 
                 return RedirectToAction(nameof(Index));
             }
