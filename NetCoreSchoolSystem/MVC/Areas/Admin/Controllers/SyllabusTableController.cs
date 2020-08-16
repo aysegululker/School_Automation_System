@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BLL.Abstract;
 using DAL.Entity;
 using DAL.Entity.ManyToMany;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using MVC.Areas.Admin.Models.ViewModels;
 namespace MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SyllabusTableController : Controller
     {
         private readonly ISyllabusTableService syllabusTableService;

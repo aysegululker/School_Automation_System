@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Areas.Ogrenci.Models.ViewModels;
@@ -10,6 +11,7 @@ using MVC.Areas.Ogrenci.Models.ViewModels;
 namespace MVC.Areas.Ogrenci.Controllers
 {
     [Area("Ogrenci")]
+    [Authorize(Roles = "Ogrenci")]
     public class NoteController : Controller
     {
         private readonly INoteEntryService noteEntryService;

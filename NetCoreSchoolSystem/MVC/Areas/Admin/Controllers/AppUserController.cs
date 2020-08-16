@@ -12,7 +12,7 @@ using MVC.Areas.Admin.Models.ViewModels;
 namespace MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    
+    //[Authorize(Roles = "Admin")] => Kullanıcı oluşturabilmek için Role ataması yapılmamıştır.
     public class AppUserController : Controller
     {
         private readonly UserManager<AppUser> userManager;

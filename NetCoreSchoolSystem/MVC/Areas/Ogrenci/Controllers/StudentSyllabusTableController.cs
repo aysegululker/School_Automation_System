@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Areas.Ogrenci.Controllers
 {
     [Area("Ogrenci")]
+    [Authorize(Roles = "Ogrenci")]
     public class StudentSyllabusTableController : Controller
     {
         // GET: StudentSyllabusTable

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstract;
 using DAL.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using MVC.Areas.Ogretmen.Models.ViewModels;
 namespace MVC.Areas.Ogretmen.Controllers
 {   
     [Area("Ogretmen")]
+    [Authorize(Roles = "Ogretmen")]
     public class NoteEntryController : Controller
     {
         private readonly INoteEntryService noteEntryService;

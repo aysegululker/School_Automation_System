@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC.Areas.Admin.Models.ViewModels;
 using MVC.Areas.Ogretmen.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC.Areas.Ogretmen.Controllers
 {
     [Area("Ogretmen")]
+    [Authorize(Roles = "Ogretmen")]
     public class ClassRoomController : Controller
     {
         private readonly AppDbContext context;
