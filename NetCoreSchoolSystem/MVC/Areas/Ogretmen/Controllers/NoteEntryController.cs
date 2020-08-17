@@ -80,7 +80,7 @@ namespace MVC.Areas.Ogretmen.Controllers
 
                     noteEntry.AverageScore = noteEntry.MidTermExam1Score * sinav1katsayi + noteEntry.MidTermExam2Score * sinav2katsayi + noteEntry.FinalExamScore * sinav3katsayi;
                 }
-
+                //noteEntry.AverageScore = (noteEntry.MidTermExam1Score * 0.35m + noteEntry.MidTermExam2Score * 0.30m + noteEntry.FinalExamScore * 0.35m);
                 noteEntryService.Add(noteEntry);
                 return RedirectToAction("DetayOgrenci", "ClassRoom");
             }
@@ -117,7 +117,7 @@ namespace MVC.Areas.Ogretmen.Controllers
 
                     noteEntry.AverageScore = noteEntry.MidTermExam1Score * sinav1katsayi + noteEntry.MidTermExam2Score * sinav2katsayi + noteEntry.FinalExamScore * sinav3katsayi;
                 }
-
+                //noteEntry.AverageScore = (noteEntry.MidTermExam1Score * 0.35m + noteEntry.MidTermExam2Score * 0.30m + noteEntry.FinalExamScore * 0.35m);
                 noteEntryService.Update(noteEntry);
                 return RedirectToAction("DetayOgrenci", "ClassRoom");
             }
