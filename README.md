@@ -1,11 +1,12 @@
-Projede okul otomasyon sistemi yapmayı amaçlanmıştır. Sistemimizde Öğretmen, Önkayıt öğrencisi, mevcut öğrenci, ders bilgileri CRUD işlemleri yapılarak, okulun tüm ihtiyaçlarını karşılayacak bir uygulama yazılması amaçlanmıştır.
-Projenin sağlıklı çalışabilmesi için belli başlı paketlerin indirilmesi gerekmektedir. Bunun içinde ilk olarak Tools’dan “NuGet Package Manager” bölümünden “Package Manager Console” açıyoruz.
-Açılan ekranda “Default Project” bölümünden DAL katmanı seçilerek “install-package Microsoft.AspNetCore.Identity.EntityFrameworkCore” ifadesi ile Identity kütüphanesi yüklüyoruz.
-Daha sonra yine “Default Project” bölümünden MVC katmanı seçilerek aşağıdaki paketleri sırası ile projemize yüklüyoruz.
+Projede okul otomasyon sistemi yapmayÄ± amaÃ§lanmÄ±ÅŸtÄ±r. Sistemimizde Ã–ÄŸretmen, Ã–nkayÄ±t Ã¶ÄŸrencisi, mevcut Ã¶ÄŸrenci, ders bilgileri CRUD iÅŸlemleri yapÄ±larak, okulun tÃ¼m ihtiyaÃ§larÄ±nÄ± karÅŸÄ±layacak bir uygulama yazÄ±lmasÄ± amaÃ§lanmÄ±ÅŸtÄ±r.
+Projenin saÄŸlÄ±klÄ± Ã§alÄ±ÅŸabilmesi iÃ§in belli baÅŸlÄ± paketlerin indirilmesi gerekmektedir. Bunun iÃ§inde ilk olarak Toolsâ€™dan â€œNuGet Package Managerâ€ bÃ¶lÃ¼mÃ¼nden â€œPackage Manager Consoleâ€ aÃ§Ä±yoruz.
+AÃ§Ä±lan ekranda â€œDefault Projectâ€ bÃ¶lÃ¼mÃ¼nden DAL katmanÄ± seÃ§ilerek â€œinstall-package Microsoft.AspNetCore.Identity.EntityFrameworkCoreâ€ ifadesi ile Identity kÃ¼tÃ¼phanesi yÃ¼klÃ¼yoruz.
+Daha sonra yine â€œDefault Projectâ€ bÃ¶lÃ¼mÃ¼nden MVC katmanÄ± seÃ§ilerek aÅŸaÄŸÄ±daki paketleri sÄ±rasÄ± ile projemize yÃ¼klÃ¼yoruz.
 * install-package Microsoft.EntityFrameworkCore.SqlServer
 * install-package Microsoft.EntityFrameworkCore.Design
 * install-package Microsoft.EntityFrameworkCore.Tools
 
-Eğer kendiniz MVC’de bulunan Migrations silip birtakım düzenlemelerden sonra tekrar oluşturmak istiyorsanız, belirtilen class’larda ki Cascade’leri Restrict olarak düzelttikten sonra update-database demelisiniz. Değiştirilecek classlar; Absenteeisms, RoomLessonTeachers, StudentSyllabusTables, TeacherSyllabusTables ve NoteEntries.
-Projede yeni kullanıcı oluşturabilmek için Authorize yetkilendirmesi yorum satırına alınmıştır. Bunun dışında database oluşturulduktan sonra https://www.guidgenerator.com/ sitesinden 3 farklı GUID ID alınarak databasede bulunan AspNetRoles tablosunda “Admin”, “Ogrenci” ve “Ogretmen” olmak üzere 3 farklı statü tanımlanması gerekmektedir.
+EÄŸer kendiniz MVCâ€™de bulunan Migrations silip birtakÄ±m dÃ¼zenlemelerden sonra tekrar oluÅŸturmak istiyorsanÄ±z, belirtilen classâ€™larda ki Cascadeâ€™leri Restrict olarak dÃ¼zelttikten sonra update-database demelisiniz. DeÄŸiÅŸtirilecek classlar; Absenteeisms, RoomLessonTeachers, StudentSyllabusTables, TeacherSyllabusTables ve NoteEntries.
+Projede yeni kullanÄ±cÄ± oluÅŸturabilmek iÃ§in Authorize yetkilendirmesi yorum satÄ±rÄ±na alÄ±nmÄ±ÅŸtÄ±r. 
+Bunun dÄ±ÅŸÄ±nda database oluÅŸturulduktan sonra https://www.guidgenerator.com/ sitesinden 3 farklÄ± GUID ID alÄ±narak databasede bulunan AspNetRoles tablosunda â€œAdminâ€, â€œOgrenciâ€ ve â€œOgretmenâ€ olmak Ã¼zere 3 farklÄ± statÃ¼ tanÄ±mlanmasÄ± gerekmektedir.
 
