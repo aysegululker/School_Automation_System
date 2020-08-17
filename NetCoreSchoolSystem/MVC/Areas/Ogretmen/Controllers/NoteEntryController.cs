@@ -108,16 +108,16 @@ namespace MVC.Areas.Ogretmen.Controllers
         {
             if (ModelState.IsValid)
             {
-                Lesson lesson = new Lesson();
-                if (lesson.ID == noteEntry.LessonID)
-                {
-                    var sinav1katsayi = lesson.MidTermNoteWeight1;
-                    var sinav2katsayi = lesson.MidTermNoteWeight2;
-                    var sinav3katsayi = lesson.FinalExamNoteWeight;
+                //Lesson lesson = new Lesson();
+                //if (lesson.ID == noteEntry.LessonID)
+                //{
+                //    var sinav1katsayi = lesson.MidTermNoteWeight1;
+                //    var sinav2katsayi = lesson.MidTermNoteWeight2;
+                //    var sinav3katsayi = lesson.FinalExamNoteWeight;
 
-                    noteEntry.AverageScore = noteEntry.MidTermExam1Score * sinav1katsayi + noteEntry.MidTermExam2Score * sinav2katsayi + noteEntry.FinalExamScore * sinav3katsayi;
-                }
-                //noteEntry.AverageScore = (noteEntry.MidTermExam1Score * 0.35m + noteEntry.MidTermExam2Score * 0.30m + noteEntry.FinalExamScore * 0.35m);
+                //    noteEntry.AverageScore = noteEntry.MidTermExam1Score * sinav1katsayi + noteEntry.MidTermExam2Score * sinav2katsayi + noteEntry.FinalExamScore * sinav3katsayi;
+                //}
+                noteEntry.AverageScore = (noteEntry.MidTermExam1Score * 0.35m + noteEntry.MidTermExam2Score * 0.30m + noteEntry.FinalExamScore * 0.35m);
                 noteEntryService.Update(noteEntry);
                 return RedirectToAction("DetayOgrenci", "ClassRoom");
             }

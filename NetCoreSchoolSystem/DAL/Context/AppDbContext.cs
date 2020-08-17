@@ -48,7 +48,7 @@ namespace DAL.Context
         public DbSet<TeacherNoteEntry> TeacherNoteEntries { get; set; }
         public DbSet<TeacherSyllabusTable> TeacherSyllabusTables { get; set; }
         public DbSet<RoomLessonTeacher> RoomLessonTeachers { get; set; }
-
+        
 
 
         public override int SaveChanges()
